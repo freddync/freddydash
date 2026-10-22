@@ -1,0 +1,47 @@
+name: Actualizar precios
+
+# Últimos 3 meses de precios (empresas, ETFs, VIX/MOVE) y las series de FRED.
+# Lun-vie cada 2 horas desde la apertura hasta después del cierre de NY, y el sábado de respaldo
+# (GitHub atrasa o se salta tareas programadas). Horas en UTC. Si nada cambió, no se hace commit.
+on:
+  schedule:
+    - cron: "17 13,15,17,19,21,23 * * 1-5"
+    - cron: "17 12 * * 6"
+  workflow_dispatch:          # permite lanzarlo a mano desde la pestaña Actions
+
+permissions:
+  contents: write
+
+concurrency:
+  group: precios
+  cancel-in-progress: false   # no cortar una reconstrucción de la historia a la mitad
+
+jobs:
+  precios:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Descargar
+        run: |
+          pip install -r requirements.txt
+          python scripts/actualizar_fred.py
+          python scripts/actualizar_precios.py reciente
+
+      - name: Publicar
+        run: |
+          git add datos/precios/reciente.csv datos/fred.csv
+          if git diff --cached --quiet; then echo "Nada cambió: no se publica."; exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Precios $(TZ=America/New_York date '+%Y-%m-%d %H:%M NY')"
+          for i in 1 2 3; do git pull --rebase -X theirs origin main && git push && exit 0; git rebase --abort 2>/dev/null; sleep 15; done
+          exit 1

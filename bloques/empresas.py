@@ -1,0 +1,174 @@
+"""Down · screener general de empresas: RSI 5, MACD 6/13/5 y ratio Put/Call.
+
+Universo: las empresas de datos/universo.csv (el mismo de Industrias), con los precios de
+datos/precios y el Put/Call de datos/put_call.csv (scripts/actualizar_opciones.py).
+"""
+import hashlib
+
+import pandas as pd
+import streamlit as st
+from plotly.subplots import make_subplots
+
+from bloques import industrias, sectores
+from bloques.indicadores import rsi
+from fuentes import almacen, yahoo
+
+COLUMNAS = ["Ticker", "Nombre", "Sector", "Industria", "RSI 5", "MACD 6/13/5", "Put/Call"]
+ORDEN_MACD = ["Pre-cruce", "Alza", "Perdiendo fuerza", "Baja", "Mixta"]  # al ordenar por MACD
+MESES_DETALLE = 6  # meses que muestra la ventana de detalle
+MACD_RAPIDA, MACD_LENTA, MACD_SENAL = 6, 13, 5
+
+
+def macd(precios, rapida=MACD_RAPIDA, lenta=MACD_LENTA, senal=MACD_SENAL):
+    """(línea MACD, línea de señal, histograma) para cada columna."""
+    linea = precios.ewm(span=rapida, adjust=False).mean() - precios.ewm(span=lenta, adjust=False).mean()
+    linea_senal = linea.ewm(span=senal, adjust=False).mean()
+    return linea, linea_senal, linea - linea_senal
+
+
+def categoria_macd(linea, senal):
+    """Categoría de hoy según el MACD, su señal y el histograma (comparados contra ayer), por columna.
+
+    En orden de prioridad:
+      Pre-cruce         MACD bajo cero y bajo su señal, con el histograma subiendo: se acerca al cruce al alza.
+      Perdiendo fuerza  MACD sobre cero y sobre su señal, con el histograma bajando: se acerca al cruce a la baja.
+      Alza              MACD y señal subiendo.
+      Baja              MACD y señal bajando.
+      Mixta             cualquier otra combinación.
+    """
+    hist = linea - senal
+    m, s_, h = linea.iloc[-1], senal.iloc[-1], hist.iloc[-1]
+    dm, ds, dh = m - linea.iloc[-2], s_ - senal.iloc[-2], h - hist.iloc[-2]
+    cat = pd.Series("Mixta", index=linea.columns)
+    cat[(dm < 0) & (ds < 0)] = "Baja"
+    cat[(dm > 0) & (ds > 0)] = "Alza"
+    cat[(m > 0) & (h > 0) & (dh < 0)] = "Perdiendo fuerza"
+    cat[(m < 0) & (h < 0) & (dh > 0)] = "Pre-cruce"
+    cat[m.isna() | s_.isna()] = None
+    return cat
+
+
+@st.cache_data(show_spinner="Calculando indicadores…")
+def tabla(version):
+    """version: fechas de modificación de los archivos de datos, para recalcular cuando se actualizan."""
+    universo, precios = industrias.empresas()
+    precios = precios.ffill()
+    linea, senal, hist = macd(precios)
+    ultimo = pd.DataFrame({
+        "RSI 5": rsi(precios).iloc[-1],
+        "MACD 6/13/5": categoria_macd(linea, senal),
+        "MACD": linea.iloc[-1], "Señal MACD": senal.iloc[-1], "Histograma MACD": hist.iloc[-1],
+    })
+    archivo_pc = industrias.DATOS / "put_call.csv"
+    put_call = pd.read_csv(archivo_pc, index_col="ticker") if archivo_pc.exists() else pd.DataFrame()
+    t = universo.set_index("ticker")
+    df = pd.DataFrame({
+        "Nombre": t["nombre"],
+        "Sector": t["etf"].map(sectores.SECTORES),
+        "Industria": t["industria"],
+    }).join(ultimo).join(put_call.get("put_call", pd.Series(dtype=float)).rename("Put/Call"))
+    return df.rename_axis("Ticker").reset_index(), precios.index[-1], put_call.get("fecha", pd.Series()).max()
+
+
+@st.cache_data(ttl=3600, show_spinner="Bajando la historia de la empresa…")
+def historial(ticker):
+    return yahoo.historial(ticker)
+
+
+def grafico_detalle(h, ticker):
+    """Precio (velas), volumen, RSI 5 y MACD 6/13/5 de los últimos MESES_DETALLE meses."""
+    cierre = h[["Close"]].rename(columns={"Close": ticker})
+    r = rsi(cierre)[ticker]
+    linea, senal, hist = (x[ticker] for x in macd(cierre))
+    desde = h.index[-1] - pd.DateOffset(months=MESES_DETALLE)
+    h, r, linea, senal, hist = (x[x.index >= desde] for x in (h, r, linea, senal, hist))
+    sube = h["Close"] >= h["Open"]
+
+    fig = make_subplots(rows=4, cols=1, shared_xaxes=True, vertical_spacing=0.03,
+                        row_heights=[0.46, 0.14, 0.2, 0.2],
+                        subplot_titles=("Precio", "Volumen", "RSI 5", "MACD 6/13/5"))
+    fig.add_candlestick(x=h.index, open=h["Open"], high=h["High"], low=h["Low"], close=h["Close"], name="Precio",
+                        increasing_line_color="#3fb950", decreasing_line_color="#f85149", row=1, col=1)
+    fig.add_bar(x=h.index, y=h["Volume"], name="Volumen", row=2, col=1,
+                marker_color=["#3fb950" if s else "#f85149" for s in sube], opacity=0.7)
+    fig.add_scatter(x=r.index, y=r, name="RSI 5", line=dict(color="#d0d7de", width=1.5), row=3, col=1)
+    for nivel, color in ((70, "#f85149"), (30, "#3fb950")):
+        fig.add_hline(y=nivel, line=dict(color=color, width=1, dash="dot"), row=3, col=1)
+    fig.add_bar(x=hist.index, y=hist, name="Histograma", row=4, col=1,
+                marker_color=["#3fb950" if v >= 0 else "#f85149" for v in hist], opacity=0.6)
+    fig.add_scatter(x=linea.index, y=linea, name="MACD", line=dict(color="#d0d7de", width=1.5), row=4, col=1)
+    fig.add_scatter(x=senal.index, y=senal, name="Señal", line=dict(color="#e0823d", width=1.3), row=4, col=1)
+    fig.update_yaxes(range=[0, 100], row=3, col=1)
+    fig.update_xaxes(rangebreaks=[dict(bounds=["sat", "mon"])], rangeslider_visible=False)
+    fig.update_layout(height=820, margin=dict(l=10, r=10, t=40, b=10), showlegend=False, hovermode="x unified")
+    return fig
+
+
+@st.dialog("Empresa", width="large")
+def ver_empresa(fila):
+    st.subheader(f"{fila['Nombre']} ({fila['Ticker']})")
+    st.caption(f"{fila['Sector']} · {fila['Industria']}")
+    h = historial(fila["Ticker"])
+    if h.empty:
+        st.error("No se pudo bajar la historia de esta empresa desde Yahoo.")
+        return
+    pc = f"{fila['Put/Call']:.2f}" if pd.notna(fila["Put/Call"]) else "sin datos"
+    st.markdown(f"**RSI 5:** {fila['RSI 5']:.1f} · **MACD 6/13/5:** {fila['MACD 6/13/5']} · **Put/Call:** {pc} · "
+                f"**Último cierre:** ${h['Close'].iloc[-1]:,.2f} ({h.index[-1]:%d-%m-%Y})")
+    st.plotly_chart(grafico_detalle(h, fila["Ticker"]), width="stretch")
+
+
+def _filtrar_y_ordenar(df):
+    # Si se llegó desde una cinta (clic en un sector o industria), aplicar ese filtro
+    destino = st.session_state.pop("ir_a_filtros", None)
+    if destino:
+        st.session_state["filtro_sector"] = destino["sector"]
+        st.session_state["filtro_industria"] = destino["industria"]
+    c1, c2, c3, c4 = st.columns([2, 3, 1.6, 2])
+    elegidos_sec = c1.multiselect("Sector", sorted(df["Sector"].dropna().unique()), key="filtro_sector",
+                                  placeholder="Todos")
+    if elegidos_sec:
+        df = df[df["Sector"].isin(elegidos_sec)]
+    elegidas_ind = c2.multiselect("Industria", sorted(df["Industria"].dropna().unique()), key="filtro_industria",
+                                  placeholder="Todas")
+    if elegidas_ind:
+        df = df[df["Industria"].isin(elegidas_ind)]
+    columna = c3.selectbox("Ordenar por", COLUMNAS, index=COLUMNAS.index("RSI 5"), key="orden_columna")
+    sentido = c4.segmented_control("Orden", ["Menor a mayor", "Mayor a menor"], default="Menor a mayor",
+                                   key="orden_sentido") or "Menor a mayor"
+    clave = None
+    if columna == "MACD 6/13/5":
+        clave = lambda s: s.map({c: i for i, c in enumerate(ORDEN_MACD)})  # noqa: E731
+    estado = repr((sorted(elegidos_sec), sorted(elegidas_ind), columna, sentido))
+    return df.sort_values(columna, ascending=sentido == "Menor a mayor", key=clave, na_position="last"), estado
+
+
+def mostrar():
+    df, fecha_precios, fecha_pc = tabla(industrias.version() + almacen.version(industrias.DATOS / "put_call.csv"))
+    vista, estado = _filtrar_y_ordenar(df)
+    vista = vista[COLUMNAS].reset_index(drop=True)
+
+    # La tabla recuerda la POSICIÓN de la fila elegida, no la empresa: si cambian el orden o los filtros, otra
+    # empresa queda en esa posición y se abriría su ventana. Por eso la clave cambia con ellos y la selección
+    # parte de cero.
+    clave_tabla = "tabla_empresas_" + hashlib.md5(estado.encode()).hexdigest()[:10]
+    evento = st.dataframe(
+        vista, hide_index=True, width="stretch", height=640, key=clave_tabla,
+        on_select="rerun", selection_mode="single-row",
+        column_config={
+            "RSI 5": st.column_config.NumberColumn(format="%.1f"),
+            "Put/Call": st.column_config.NumberColumn(format="%.2f"),
+        },
+    )
+    st.caption(f"{len(vista)} de {len(df)} empresas. Haz clic en una fila para ver su precio, volumen, RSI 5 y "
+               f"MACD. Precios al {fecha_precios:%d-%m-%Y}; Put/Call de Cboe al "
+               f"{fecha_pc if isinstance(fecha_pc, str) else 'sin datos'} (se actualiza solo cada día hábil): open "
+               "interest de puts / calls, todos los vencimientos.")
+
+    # Abrir la ventana solo cuando se elige una empresa nueva (no en cada recarga mientras siga elegida)
+    filas = evento.selection.rows
+    elegida = (clave_tabla, vista.iloc[filas[0]]["Ticker"]) if filas else None
+    if elegida != st.session_state.get("empresa_vista"):
+        st.session_state["empresa_vista"] = elegida
+        if elegida:
+            ver_empresa(vista.iloc[filas[0]])

@@ -1,0 +1,734 @@
+ticker,nombre,cap,sector,etf,industria
+CTVA,"Corteva, Inc.",51160589280.0,Basic Materials,XLB,Agricultural Inputs
+CF,"CF Industries Holdings, Inc.",17903300779.0,Basic Materials,XLB,Agricultural Inputs
+AA,Alcoa Corporation,13190194061.0,Basic Materials,XLB,Aluminum
+VMC,Vulcan Materials Company,36541204398.0,Basic Materials,XLB,Building Materials
+MLM,"Martin Marietta Materials, Inc.",32911875163.0,Basic Materials,XLB,Building Materials
+DOW,Dow Inc.,22443125891.0,Basic Materials,XLB,Chemicals
+SCCO,Southern Copper Corporation,154025976245.0,Basic Materials,XLB,Copper
+FCX,Freeport-McMoRan Inc.,95480805104.0,Basic Materials,XLB,Copper
+NEM,Newmont Corporation,124082801833.0,Basic Materials,XLB,Gold
+RGLD,"Royal Gold, Inc.",19545022053.0,Basic Materials,XLB,Gold
+CDE,"Coeur Mining, Inc.",19335457312.0,Basic Materials,XLB,Gold
+MP,MP Materials Corp.,10461687279.0,Basic Materials,XLB,Other Industrial Metals & Mining
+HL,Hecla Mining Company,12340386077.0,Basic Materials,XLB,Other Precious Metals & Mining
+LIN,Linde plc,222533563887.0,Basic Materials,XLB,Specialty Chemicals
+SHW,The Sherwin-Williams Company,87174452024.0,Basic Materials,XLB,Specialty Chemicals
+ECL,Ecolab Inc.,77401530574.0,Basic Materials,XLB,Specialty Chemicals
+APD,"Air Products and Chemicals, Inc.",68803148204.0,Basic Materials,XLB,Specialty Chemicals
+PPG,"PPG Industries, Inc.",25366653000.0,Basic Materials,XLB,Specialty Chemicals
+IFF,International Flavors & Fragrances Inc.,21478523885.0,Basic Materials,XLB,Specialty Chemicals
+DD,"DuPont de Nemours, Inc.",19751385524.0,Basic Materials,XLB,Specialty Chemicals
+ALB,Albemarle Corporation,16066388511.0,Basic Materials,XLB,Specialty Chemicals
+RPM,RPM International Inc.,14539527514.0,Basic Materials,XLB,Specialty Chemicals
+WLK,Westlake Corporation,10166215393.0,Basic Materials,XLB,Specialty Chemicals
+NUE,Nucor Corporation,61009138033.0,Basic Materials,XLB,Steel
+STLD,"Steel Dynamics, Inc.",36659025068.0,Basic Materials,XLB,Steel
+RS,"Reliance, Inc.",21776809890.0,Basic Materials,XLB,Steel
+APP,AppLovin Corporation,105562311440.0,Communication Services,XLC,Advertising Agencies
+OMC,Omnicom Group Inc.,24024476330.0,Communication Services,XLC,Advertising Agencies
+TTWO,"Take-Two Interactive Software, Inc.",46174820399.0,Communication Services,XLC,Electronic Gaming & Multimedia
+RBLX,Roblox Corporation,27310592224.0,Communication Services,XLC,Electronic Gaming & Multimedia
+NFLX,"Netflix, Inc.",325453525076.0,Communication Services,XLC,Entertainment
+DIS,The Walt Disney Company,184496495479.0,Communication Services,XLC,Entertainment
+WBD,Warner Bros. Discovery Inc,70274585759.0,Communication Services,XLC,Entertainment
+LYV,"Live Nation Entertainment, Inc.",44407557256.0,Communication Services,XLC,Entertainment
+TKO,"TKO Group Holdings, Inc.",38096207833.0,Communication Services,XLC,Entertainment
+FOXA,Fox Corporation,28972646287.0,Communication Services,XLC,Entertainment
+FWONK,Formula One Group,26048611592.0,Communication Services,XLC,Entertainment
+ROKU,"Roku, Inc.",23402703032.0,Communication Services,XLC,Entertainment
+NWS,News Corporation,17946716002.0,Communication Services,XLC,Entertainment
+WMG,Warner Music Group Corp.,13417765575.0,Communication Services,XLC,Entertainment
+PSKY,Paramount Skydance Corp,11376530199.0,Communication Services,XLC,Entertainment
+LLYVK,"Liberty Live Holdings, Inc.",10015705231.0,Communication Services,XLC,Entertainment
+GOOGL,Alphabet Inc.,4230357000000.0,Communication Services,XLC,Internet Content & Information
+META,"Meta Platforms, Inc.",1502646546816.0,Communication Services,XLC,Internet Content & Information
+RDDT,"Reddit, Inc.",34263894466.0,Communication Services,XLC,Internet Content & Information
+TME,Tencent Music Entertainment Group,13913315780.0,Communication Services,XLC,Internet Content & Information
+PINS,"Pinterest, Inc.",13625491430.0,Communication Services,XLC,Internet Content & Information
+NYT,The New York Times Company,10398980429.0,Communication Services,XLC,Publishing
+VZ,Verizon Communications Inc.,201423501793.0,Communication Services,XLC,Telecom Services
+TMUS,"T-Mobile US, Inc.",195880563250.0,Communication Services,XLC,Telecom Services
+T,AT&T Inc.,170555878829.0,Communication Services,XLC,Telecom Services
+CMCSA,Comcast Corporation,92903305481.0,Communication Services,XLC,Telecom Services
+ECHO,EchoStar Corporation,26693191158.0,Communication Services,XLC,Telecom Services
+CHTR,"Charter Communications, Inc.",18400938691.0,Communication Services,XLC,Telecom Services
+GSAT,"Globalstar, Inc.",10674727702.0,Communication Services,XLC,Telecom Services
+COP,ConocoPhillips,152305565588.0,Energy,XLE,Oil & Gas E&P
+EOG,"EOG Resources, Inc.",74803105789.0,Energy,XLE,Oil & Gas E&P
+OXY,Occidental Petroleum Corporation,58338836972.0,Energy,XLE,Oil & Gas E&P
+FANG,"Diamondback Energy, Inc.",56696530752.0,Energy,XLE,Oil & Gas E&P
+DVN,Devon Energy Corporation,50435000000.0,Energy,XLE,Oil & Gas E&P
+EQT,EQT Corporation,34040580720.0,Energy,XLE,Oil & Gas E&P
+TPL,Texas Pacific Land Corporation,24728803349.0,Energy,XLE,Oil & Gas E&P
+EXE,Expand Energy Corporation,21941929121.0,Energy,XLE,Oil & Gas E&P
+PR,Permian Resources Corporation,18007476124.0,Energy,XLE,Oil & Gas E&P
+APA,APA Corporation,14178725610.0,Energy,XLE,Oil & Gas E&P
+AR,Antero Resources Corporation,11488995430.0,Energy,XLE,Oil & Gas E&P
+BKR,Baker Hughes Company,64345133282.0,Energy,XLE,Oil & Gas Equipment & Services
+HAL,Halliburton Company,28676347232.0,Energy,XLE,Oil & Gas Equipment & Services
+XOM,ExxonMobil Holdings Corporation,658317104796.0,Energy,XLE,Oil & Gas Integrated
+CVX,Chevron Corporation,395154254800.0,Energy,XLE,Oil & Gas Integrated
+WMB,"The Williams Companies, Inc.",91982193894.0,Energy,XLE,Oil & Gas Midstream
+EPD,Enterprise Products Partners L.P.,84003661874.0,Energy,XLE,Oil & Gas Midstream
+KMI,"Kinder Morgan, Inc.",73083644561.0,Energy,XLE,Oil & Gas Midstream
+ET,Energy Transfer LP,72481456601.0,Energy,XLE,Oil & Gas Midstream
+MPLX,MPLX LP,60304288769.0,Energy,XLE,Oil & Gas Midstream
+OKE,"ONEOK, Inc.",59878814668.0,Energy,XLE,Oil & Gas Midstream
+TRGP,Targa Resources Corp.,59137931282.0,Energy,XLE,Oil & Gas Midstream
+LNG,"Cheniere Energy, Inc.",56102938679.0,Energy,XLE,Oil & Gas Midstream
+VG,"Venture Global, Inc.",34976298985.0,Energy,XLE,Oil & Gas Midstream
+CQP,"Cheniere Energy Partners, L.P.",33424184461.0,Energy,XLE,Oil & Gas Midstream
+WES,"Western Midstream Partners, LP",20212501090.0,Energy,XLE,Oil & Gas Midstream
+PAA,"Plains All American Pipeline, L.P.",16863038394.0,Energy,XLE,Oil & Gas Midstream
+VNOM,"Viper Energy, Inc.",15190352025.0,Energy,XLE,Oil & Gas Midstream
+DTM,"DT Midstream, Inc.",13965894022.0,Energy,XLE,Oil & Gas Midstream
+AM,Antero Midstream Corporation,10703898700.0,Energy,XLE,Oil & Gas Midstream
+MPC,Marathon Petroleum Corporation,99810737265.0,Energy,XLE,Oil & Gas Refining & Marketing
+VLO,Valero Energy Corporation,98376175600.0,Energy,XLE,Oil & Gas Refining & Marketing
+PSX,Phillips 66,93215276187.0,Energy,XLE,Oil & Gas Refining & Marketing
+DINO,HF Sinclair Corporation,16653013136.0,Energy,XLE,Oil & Gas Refining & Marketing
+SUN,Sunoco LP,15480645460.0,Energy,XLE,Oil & Gas Refining & Marketing
+BLK,"BlackRock, Inc.",181774695366.0,Financial Services,XLF,Asset Management
+BX,Blackstone Inc.,108037472658.0,Financial Services,XLF,Asset Management
+KKR,KKR & Co. Inc.,102339434870.0,Financial Services,XLF,Asset Management
+APO,"Apollo Global Management, Inc.",83124855061.0,Financial Services,XLF,Asset Management
+STT,State Street Corporation,52671316421.0,Financial Services,XLF,Asset Management
+AMP,"Ameriprise Financial, Inc.",51199985221.0,Financial Services,XLF,Asset Management
+ARES,Ares Management Corporation,47566526521.0,Financial Services,XLF,Asset Management
+NTRS,Northern Trust Corporation,35019541541.0,Financial Services,XLF,Asset Management
+RJF,"Raymond James Financial, Inc.",34780920966.0,Financial Services,XLF,Asset Management
+PFG,"Principal Financial Group, Inc.",24403646981.0,Financial Services,XLF,Asset Management
+TROW,"T. Rowe Price Group, Inc.",23584200376.0,Financial Services,XLF,Asset Management
+TPG,TPG Inc.,20041032161.0,Financial Services,XLF,Asset Management
+OWL,Blue Owl Capital Inc.,19052106965.0,Financial Services,XLF,Asset Management
+CG,The Carlyle Group Inc.,17560080285.0,Financial Services,XLF,Asset Management
+BEN,Franklin Templeton Inc.,17203484173.0,Financial Services,XLF,Asset Management
+CRBG,"Corebridge Financial, Inc.",15365778833.0,Financial Services,XLF,Asset Management
+EQH,"Equitable Holdings, Inc.",14495436485.0,Financial Services,XLF,Asset Management
+IVZ,Invesco Ltd.,14370817839.0,Financial Services,XLF,Asset Management
+ARCC,Ares Capital Corporation,14267113930.0,Financial Services,XLF,Asset Management
+CET,Central Securities Corporation,13350110032.0,Financial Services,XLF,Asset Management
+SEIC,SEI Investments Company,12767640581.0,Financial Services,XLF,Asset Management
+JPM,JPMorgan Chase & Co.,964496278994.0,Financial Services,XLF,Banks - Diversified
+BAC,Bank of America Corporation,450962342059.0,Financial Services,XLF,Banks - Diversified
+WFC,Wells Fargo & Company,268591621024.0,Financial Services,XLF,Banks - Diversified
+C,Citigroup Inc.,233717266975.0,Financial Services,XLF,Banks - Diversified
+BNY,The Bank of New York Mellon Corporation,110759016140.0,Financial Services,XLF,Banks - Diversified
+PNC,"The PNC Financial Services Group, Inc.",102516554109.0,Financial Services,XLF,Banks - Regional
+USB,U.S. Bancorp,101927725597.0,Financial Services,XLF,Banks - Regional
+TFC,Truist Financial Corporation,64868350583.0,Financial Services,XLF,Banks - Regional
+FITB,Fifth Third Bancorp,52654182266.0,Financial Services,XLF,Banks - Regional
+HBANL,Huntington Bancshares Incorporated,50899502545.0,Financial Services,XLF,Banks - Regional
+MTB,M&T Bank Corporation,36694728012.0,Financial Services,XLF,Banks - Regional
+CFG,"Citizens Financial Group, Inc.",31474541367.0,Financial Services,XLF,Banks - Regional
+RF,Regions Financial Corporation,27176551241.0,Financial Services,XLF,Banks - Regional
+FCNCA,"First Citizens BancShares, Inc.",25876264650.0,Financial Services,XLF,Banks - Regional
+KEY,KeyCorp,24874766594.0,Financial Services,XLF,Banks - Regional
+EWBC,"East West Bancorp, Inc.",18715819530.0,Financial Services,XLF,Banks - Regional
+PNFP,"Pinnacle Financial Partners, Inc.",16321676246.0,Financial Services,XLF,Banks - Regional
+VLYPN,Valley National Bancorp,14185376151.0,Financial Services,XLF,Banks - Regional
+WBS,Webster Financial Corp,12800642392.0,Financial Services,XLF,Banks - Regional
+FHN,First Horizon Corporation,12422437083.0,Financial Services,XLF,Banks - Regional
+UMBF,UMB Financial Corporation,11547442561.0,Financial Services,XLF,Banks - Regional
+BPOP,"Popular, Inc.",11344281973.0,Financial Services,XLF,Banks - Regional
+WTFC,Wintrust Financial Corporation,10961195658.0,Financial Services,XLF,Banks - Regional
+SSB,SouthState Bank Corporation,10821388249.0,Financial Services,XLF,Banks - Regional
+CFR,"Cullen/Frost Bankers, Inc.",10570265353.0,Financial Services,XLF,Banks - Regional
+ZION,"Zions Bancorporation, National Association",10537832231.0,Financial Services,XLF,Banks - Regional
+ONB,Old National Bancorp,10394426900.0,Financial Services,XLF,Banks - Regional
+MS,Morgan Stanley,341378289229.0,Financial Services,XLF,Capital Markets
+GS,"The Goldman Sachs Group, Inc.",302649384903.0,Financial Services,XLF,Capital Markets
+SCHW,The Charles Schwab Corporation,192111904468.0,Financial Services,XLF,Capital Markets
+HOOD,"Robinhood Markets, Inc.",85916302008.0,Financial Services,XLF,Capital Markets
+IBKR,"Interactive Brokers Group, Inc.",41710376422.0,Financial Services,XLF,Capital Markets
+LPLA,LPL Financial Holdings Inc.,29187404634.0,Financial Services,XLF,Capital Markets
+TW,Tradeweb Markets Inc.,24874863968.0,Financial Services,XLF,Capital Markets
+CRCL,Circle Internet Group,18177513080.0,Financial Services,XLF,Capital Markets
+SF,Stifel Financial Corp.,12928768465.0,Financial Services,XLF,Capital Markets
+EVR,Evercore Inc.,11821151802.0,Financial Services,XLF,Capital Markets
+BMNR,"Bitmine Immersion Technologies, Inc.",10906333204.0,Financial Services,XLF,Capital Markets
+JEF,Jefferies Financial Group Inc.,10682971927.0,Financial Services,XLF,Capital Markets
+HUT,Hut 8 Corp.,10531288946.0,Financial Services,XLF,Capital Markets
+V,Visa Inc.,650646915184.0,Financial Services,XLF,Credit Services
+MA,Mastercard Incorporated,498703698743.0,Financial Services,XLF,Credit Services
+AXP,American Express Company,231280111606.0,Financial Services,XLF,Credit Services
+COF,Capital One Financial Corporation,139469642616.0,Financial Services,XLF,Credit Services
+PYPL,"PayPal Holdings, Inc.",52747717491.0,Financial Services,XLF,Credit Services
+SYF,Synchrony Financial,30136661388.0,Financial Services,XLF,Credit Services
+AFRM,"Affirm Holdings, Inc.",26239302568.0,Financial Services,XLF,Credit Services
+SOFI,"SoFi Technologies, Inc.",23622821226.0,Financial Services,XLF,Credit Services
+SLMBP,SLM Corporation,14020843067.0,Financial Services,XLF,Credit Services
+ALLY,Ally Financial Inc.,13661608213.0,Financial Services,XLF,Credit Services
+SPGI,S&P Global Inc.,123462240000.0,Financial Services,XLF,Financial Data & Stock Exchanges
+CME,CME Group Inc.,97014485157.0,Financial Services,XLF,Financial Data & Stock Exchanges
+ICE,"Intercontinental Exchange, Inc.",86864568974.0,Financial Services,XLF,Financial Data & Stock Exchanges
+MCO,Moody's Corporation,83995072000.0,Financial Services,XLF,Financial Data & Stock Exchanges
+NDAQ,"Nasdaq, Inc.",54231984631.0,Financial Services,XLF,Financial Data & Stock Exchanges
+MSCI,MSCI Inc.,41375751000.0,Financial Services,XLF,Financial Data & Stock Exchanges
+COIN,"Coinbase Global, Inc.",39171867958.0,Financial Services,XLF,Financial Data & Stock Exchanges
+TRU,TransUnion,15419968000.0,Financial Services,XLF,Financial Data & Stock Exchanges
+FDS,FactSet Research Systems Inc.,10082475785.0,Financial Services,XLF,Financial Data & Stock Exchanges
+BRK-B,Berkshire Hathaway Inc.,1112047120325.0,Financial Services,XLF,Insurance - Diversified
+AIG,"American International Group, Inc.",40074532472.0,Financial Services,XLF,Insurance - Diversified
+HIG,"The Hartford Insurance Group, Inc.",37385753716.0,Financial Services,XLF,Insurance - Diversified
+MET,"MetLife, Inc.",62060676691.0,Financial Services,XLF,Insurance - Life
+AFL,Aflac Incorporated,60888143542.0,Financial Services,XLF,Insurance - Life
+PRU,"Prudential Financial, Inc.",43169850000.0,Financial Services,XLF,Insurance - Life
+UNM,Unum Group,14774773457.0,Financial Services,XLF,Insurance - Life
+GL,Globe Life Inc.,13909749907.0,Financial Services,XLF,Insurance - Life
+PGR,The Progressive Corporation,121855522992.0,Financial Services,XLF,Insurance - Property & Casualty
+TRV,"The Travelers Companies, Inc.",77247845148.0,Financial Services,XLF,Insurance - Property & Casualty
+ALL,The Allstate Corporation,66099596710.0,Financial Services,XLF,Insurance - Property & Casualty
+CINF,Cincinnati Financial Corporation,26577793053.0,Financial Services,XLF,Insurance - Property & Casualty
+WRB,W. R. Berkley Corporation,26175253070.0,Financial Services,XLF,Insurance - Property & Casualty
+L,Loews Corporation,23106465192.0,Financial Services,XLF,Insurance - Property & Casualty
+MKL,Markel Group Inc.,22887226016.0,Financial Services,XLF,Insurance - Property & Casualty
+AIZ,"Assurant, Inc.",13928045325.0,Financial Services,XLF,Insurance - Property & Casualty
+CNA,CNA Financial Corporation,13800647328.0,Financial Services,XLF,Insurance - Property & Casualty
+AFG,"American Financial Group, Inc.",12130581261.0,Financial Services,XLF,Insurance - Property & Casualty
+ORI,Old Republic International Corporation,10345400708.0,Financial Services,XLF,Insurance - Property & Casualty
+RGA,"Reinsurance Group of America, Incorporated",16289500334.0,Financial Services,XLF,Insurance - Reinsurance
+FNF,"Fidelity National Financial, Inc.",13267499152.0,Financial Services,XLF,Insurance - Specialty
+MRSH,"Marsh & McLennan Companies, Inc.",89629820356.0,Financial Services,XLF,Insurance Brokers
+AON,Aon plc,75480593180.0,Financial Services,XLF,Insurance Brokers
+AJG,Arthur J. Gallagher & Co.,64385123000.0,Financial Services,XLF,Insurance Brokers
+BRO,"Brown & Brown, Inc.",23603414583.0,Financial Services,XLF,Insurance Brokers
+ERIE,Erie Indemnity Company,11823939517.0,Financial Services,XLF,Insurance Brokers
+RYAN,"Ryan Specialty Holdings, Inc.",10698174309.0,Financial Services,XLF,Insurance Brokers
+RKT,"Rocket Companies, Inc.",41795042134.0,Financial Services,XLF,Mortgage Finance
+SPCX,Space Exploration Technologies Corp.,1845449192300.0,Industrials,XLI,Aerospace & Defense
+GE,GE Aerospace,382217278539.0,Industrials,XLI,Aerospace & Defense
+RTX,RTX Corporation,300509633368.0,Industrials,XLI,Aerospace & Defense
+BA,The Boeing Company,183105022533.0,Industrials,XLI,Aerospace & Defense
+LMT,Lockheed Martin Corporation,140477715536.0,Industrials,XLI,Aerospace & Defense
+HWM,Howmet Aerospace Inc.,115325388563.0,Industrials,XLI,Aerospace & Defense
+GD,General Dynamics Corporation,107081126637.0,Industrials,XLI,Aerospace & Defense
+NOC,Northrop Grumman Corporation,83230465043.0,Industrials,XLI,Aerospace & Defense
+TDG,TransDigm Group Incorporated,69477064273.0,Industrials,XLI,Aerospace & Defense
+LHX,"L3Harris Technologies, Inc.",54341149241.0,Industrials,XLI,Aerospace & Defense
+HONA,Honeywell Aerospace Inc.,52728255331.0,Industrials,XLI,Aerospace & Defense
+HEI,HEICO Corporation,52355527056.0,Industrials,XLI,Aerospace & Defense
+AXON,"Axon Enterprise, Inc.",49784725034.0,Industrials,XLI,Aerospace & Defense
+RKLB,Rocket Lab Corporation,48017626181.0,Industrials,XLI,Aerospace & Defense
+CW,Curtiss-Wright Corporation,25828626034.0,Industrials,XLI,Aerospace & Defense
+ARXS,"Arxis, Inc.",23912931914.0,Industrials,XLI,Aerospace & Defense
+FTAI,FTAI Aviation Ltd.,22300790669.0,Industrials,XLI,Aerospace & Defense
+WWD,"Woodward, Inc.",21880019059.0,Industrials,XLI,Aerospace & Defense
+BWXT,"BWX Technologies, Inc.",15870759376.0,Industrials,XLI,Aerospace & Defense
+TXT,Textron Inc.,15306835613.0,Industrials,XLI,Aerospace & Defense
+HII,"Huntington Ingalls Industries, Inc.",12913280811.0,Industrials,XLI,Aerospace & Defense
+KTOS,"Kratos Defense & Security Solutions, Inc.",12123043298.0,Industrials,XLI,Aerospace & Defense
+DAL,"Delta Air Lines, Inc.",58758617731.0,Industrials,XLI,Airlines
+UAL,"United Airlines Holdings, Inc.",40683329982.0,Industrials,XLI,Airlines
+LUV,Southwest Airlines Co.,21652354976.0,Industrials,XLI,Airlines
+CARR,Carrier Global Corporation,51751127078.0,Industrials,XLI,Building Products & Equipment
+CSL,Carlisle Companies Incorporated,14695817775.0,Industrials,XLI,Building Products & Equipment
+MAS,Masco Corporation,14656941672.0,Industrials,XLI,Building Products & Equipment
+LII,Lennox International Inc.,14584950457.0,Industrials,XLI,Building Products & Equipment
+OC,Owens Corning,12226459800.0,Industrials,XLI,Building Products & Equipment
+WMS,"Advanced Drainage Systems, Inc.",11379420161.0,Industrials,XLI,Building Products & Equipment
+SPXC,"SPX Technologies, Inc.",10884659095.0,Industrials,XLI,Building Products & Equipment
+MMM,3M Company,94196699465.0,Industrials,XLI,Conglomerates
+HON,Honeywell International Inc.,74151284740.0,Industrials,XLI,Conglomerates
+VRSK,"Verisk Analytics, Inc.",23645442700.0,Industrials,XLI,Consulting Services
+EFX,Equifax Inc.,21247143442.0,Industrials,XLI,Consulting Services
+VRT,Vertiv Holdings Co,113124924754.0,Industrials,XLI,Electrical Equipment & Parts
+BE,Bloom Energy Corporation,67723617939.0,Industrials,XLI,Electrical Equipment & Parts
+HUBB,Hubbell Incorporated,27018048484.0,Industrials,XLI,Electrical Equipment & Parts
+AEIS,"Advanced Energy Industries, Inc.",13227058975.0,Industrials,XLI,Electrical Equipment & Parts
+FPS,"Forgent Power Solutions, Inc.",12073649738.0,Industrials,XLI,Electrical Equipment & Parts
+AYI,Acuity Inc.,10729798111.0,Industrials,XLI,Electrical Equipment & Parts
+PWR,"Quanta Services, Inc.",101035815843.0,Industrials,XLI,Engineering & Construction
+FIX,"Comfort Systems USA, Inc.",62436851306.0,Industrials,XLI,Engineering & Construction
+EME,"EMCOR Group, Inc.",36888669107.0,Industrials,XLI,Engineering & Construction
+MTZ,"MasTec, Inc.",23897949475.0,Industrials,XLI,Engineering & Construction
+APG,APi Group Corporation,18993445053.0,Industrials,XLI,Engineering & Construction
+STRL,"Sterling Infrastructure, Inc.",17633668857.0,Industrials,XLI,Engineering & Construction
+J,Jacobs Solutions Inc.,16930805467.0,Industrials,XLI,Engineering & Construction
+IESC,"IES Holdings, Inc.",15066399520.0,Industrials,XLI,Engineering & Construction
+DY,"Dycom Industries, Inc.",12585281847.0,Industrials,XLI,Engineering & Construction
+CAT,Caterpillar Inc.,393743719671.0,Industrials,XLI,Farm & Heavy Construction Machinery
+DE,Deere & Company,164351401211.0,Industrials,XLI,Farm & Heavy Construction Machinery
+PCAR,PACCAR Inc,68843272203.0,Industrials,XLI,Farm & Heavy Construction Machinery
+GWW,"W.W. Grainger, Inc.",62297589927.0,Industrials,XLI,Industrial Distribution
+FAST,Fastenal Company,58545326174.0,Industrials,XLI,Industrial Distribution
+WCC,"WESCO International, Inc.",17619363364.0,Industrials,XLI,Industrial Distribution
+QXO,"QXO, Inc.",15054125000.0,Industrials,XLI,Industrial Distribution
+AIT,"Applied Industrial Technologies, Inc.",13377505865.0,Industrials,XLI,Industrial Distribution
+WSO,"Watsco, Inc.",12914411854.0,Industrials,XLI,Industrial Distribution
+UPS,"United Parcel Service, Inc.",88906675319.0,Industrials,XLI,Integrated Freight & Logistics
+FDX,FedEx Corporation,79172651613.0,Industrials,XLI,Integrated Freight & Logistics
+JBHT,"J.B. Hunt Transport Services, Inc.",26268947588.0,Industrials,XLI,Integrated Freight & Logistics
+EXPD,"Expeditors International of Washington, Inc.",24193854567.0,Industrials,XLI,Integrated Freight & Logistics
+FDXF,"FedEx Freight Holding Company, Inc.",22471080209.0,Industrials,XLI,Integrated Freight & Logistics
+CHRW,"C.H. Robinson Worldwide, Inc.",17360591401.0,Industrials,XLI,Integrated Freight & Logistics
+ATI,ATI Inc.,31112209108.0,Industrials,XLI,Metal Fabrication
+CRS,Carpenter Technology Corporation,26989099458.0,Industrials,XLI,Metal Fabrication
+MLI,"Mueller Industries, Inc.",14575853469.0,Industrials,XLI,Metal Fabrication
+VLTO,Veralto Corporation,23813733842.0,Industrials,XLI,Pollution & Treatment Controls
+UNP,Union Pacific Corporation,174468092253.0,Industrials,XLI,Railroads
+CSX,CSX Corporation,92920141837.0,Industrials,XLI,Railroads
+NSC,Norfolk Southern Corporation,75111286015.0,Industrials,XLI,Railroads
+WAB,Westinghouse Air Brake Technologies Corporation,50507722666.0,Industrials,XLI,Railroads
+URI,"United Rentals, Inc.",71817251083.0,Industrials,XLI,Rental & Leasing Services
+UHAL,U-Haul Holding Company,14425941264.0,Industrials,XLI,Rental & Leasing Services
+R,"Ryder System, Inc.",10122039277.0,Industrials,XLI,Rental & Leasing Services
+ALLE,Allegion plc,14012361597.0,Industrials,XLI,Security & Protection Services
+CTAS,Cintas Corporation,79841830811.0,Industrials,XLI,Specialty Business Services
+TRI,Thomson Reuters Corporation,44883852000.0,Industrials,XLI,Specialty Business Services
+CPRT,"Copart, Inc.",29264900946.0,Industrials,XLI,Specialty Business Services
+GPN,Global Payments Inc.,24622741190.0,Industrials,XLI,Specialty Business Services
+ARMK,Aramark,16447566495.0,Industrials,XLI,Specialty Business Services
+ULS,UL Solutions Inc.,15639032481.0,Industrials,XLI,Specialty Business Services
+RTO,Rentokil Initial plc,12024896000.0,Industrials,XLI,Specialty Business Services
+GEV,GE Vernova Inc.,283179179998.0,Industrials,XLI,Specialty Industrial Machinery
+PH,Parker-Hannifin Corporation,133128313826.0,Industrials,XLI,Specialty Industrial Machinery
+EMR,Emerson Electric Co.,91016226000.0,Industrials,XLI,Specialty Industrial Machinery
+CMI,Cummins Inc.,86902084064.0,Industrials,XLI,Specialty Industrial Machinery
+ITW,Illinois Tool Works Inc.,82822688000.0,Industrials,XLI,Specialty Industrial Machinery
+AME,"AMETEK, Inc.",58413472359.0,Industrials,XLI,Specialty Industrial Machinery
+ROK,"Rockwell Automation, Inc.",50003176260.0,Industrials,XLI,Specialty Industrial Machinery
+IR,Ingersoll Rand Inc.,32335872413.0,Industrials,XLI,Specialty Industrial Machinery
+XYL,Xylem Inc.,27943701660.0,Industrials,XLI,Specialty Industrial Machinery
+DOV,Dover Corporation,27888234191.0,Industrials,XLI,Specialty Industrial Machinery
+OTIS,Otis Worldwide Corporation,27648014092.0,Industrials,XLI,Specialty Industrial Machinery
+SYM,Symbotic Inc.,25825032932.0,Industrials,XLI,Specialty Industrial Machinery
+ITT,ITT Inc.,19614360000.0,Industrials,XLI,Specialty Industrial Machinery
+IEX,IDEX Corporation,17614631950.0,Industrials,XLI,Specialty Industrial Machinery
+NDSN,Nordson Corporation,17201244907.0,Industrials,XLI,Specialty Industrial Machinery
+GGG,Graco Inc.,13270496339.0,Industrials,XLI,Specialty Industrial Machinery
+GNRC,Generac Holdings Inc.,12940094967.0,Industrials,XLI,Specialty Industrial Machinery
+WTS,"Watts Water Technologies, Inc.",12833112081.0,Industrials,XLI,Specialty Industrial Machinery
+CR,Crane Company,12620129729.0,Industrials,XLI,Specialty Industrial Machinery
+RRX,Regal Rexnord Corporation,11686206740.0,Industrials,XLI,Specialty Industrial Machinery
+DCI,"Donaldson Company, Inc.",11121665823.0,Industrials,XLI,Specialty Industrial Machinery
+FLS,Flowserve Corporation,10279610519.0,Industrials,XLI,Specialty Industrial Machinery
+SNA,Snap-on Incorporated,20874998161.0,Industrials,XLI,Tools & Accessories
+RBC,RBC Bearings Incorporated,17744690230.0,Industrials,XLI,Tools & Accessories
+LECO,"Lincoln Electric Holdings, Inc.",15636066511.0,Industrials,XLI,Tools & Accessories
+SWK,"Stanley Black & Decker, Inc.",15414268547.0,Industrials,XLI,Tools & Accessories
+ODFL,"Old Dominion Freight Line, Inc.",43746026543.0,Industrials,XLI,Trucking
+XPO,"XPO, Inc.",24712269303.0,Industrials,XLI,Trucking
+KNX,Knight-Swift Transportation Holdings Inc.,11786789520.0,Industrials,XLI,Trucking
+SAIA,"Saia, Inc.",10251601488.0,Industrials,XLI,Trucking
+WM,"Waste Management, Inc.",89756044567.0,Industrials,XLI,Waste Management
+RSG,"Republic Services, Inc.",65746988506.0,Industrials,XLI,Waste Management
+CLH,"Clean Harbors, Inc.",16996438111.0,Industrials,XLI,Waste Management
+CSCO,"Cisco Systems, Inc.",440179423387.0,Technology,XLK,Communication Equipment
+HPE,Hewlett Packard Enterprise Company,77743988718.0,Technology,XLK,Communication Equipment
+MSI,"Motorola Solutions, Inc.",77204507040.0,Technology,XLK,Communication Equipment
+LITE,Lumentum Holdings Inc.,72053692000.0,Technology,XLK,Communication Equipment
+CIEN,Ciena Corporation,60693646366.0,Technology,XLK,Communication Equipment
+UI,Ubiquiti Inc.,34667050288.0,Technology,XLK,Communication Equipment
+ASTS,"AST SpaceMobile, Inc.",27623108724.0,Technology,XLK,Communication Equipment
+ZBRA,Zebra Technologies Corporation,17790227480.0,Technology,XLK,Communication Equipment
+AAOI,"Applied Optoelectronics, Inc.",12709064936.0,Technology,XLK,Communication Equipment
+VSAT,"Viasat, Inc.",11415823975.0,Technology,XLK,Communication Equipment
+VIAV,Viavi Solutions Inc.,10184348660.0,Technology,XLK,Communication Equipment
+DELL,Dell Technologies Inc.,318097883063.0,Technology,XLK,Computer Hardware
+ANET,"Arista Networks, Inc.",250756684515.0,Technology,XLK,Computer Hardware
+SNDK,Sandisk Corporation,243031582751.0,Technology,XLK,Computer Hardware
+WDC,Western Digital Corporation,175374268253.0,Technology,XLK,Computer Hardware
+SMCIP,"Super Micro Computer, Inc.",40234896446.0,Technology,XLK,Computer Hardware
+P,"Everpure, Inc.",39276966765.0,Technology,XLK,Computer Hardware
+HPQ,HP Inc.,27536278196.0,Technology,XLK,Computer Hardware
+IONQ,"IonQ, Inc.",17625167046.0,Technology,XLK,Computer Hardware
+LOGI,Logitech International S.A.,14761285146.0,Technology,XLK,Computer Hardware
+AAPL,Apple Inc.,4464797487400.0,Technology,XLK,Consumer Electronics
+APH,Amphenol Corporation,206043865499.0,Technology,XLK,Electronic Components
+GLW,Corning Incorporated,142981849063.0,Technology,XLK,Electronic Components
+JBL,Jabil Inc.,38048192016.0,Technology,XLK,Electronic Components
+TTMI,"TTM Technologies, Inc.",14748840960.0,Technology,XLK,Electronic Components
+LFUS,"Littelfuse, Inc.",11621704665.0,Technology,XLK,Electronic Components
+SANM,Sanmina Corporation,11300466539.0,Technology,XLK,Electronic Components
+VICR,Vicor Corporation,10823094270.0,Technology,XLK,Electronic Components
+SNX,TD SYNNEX Corporation,20688527492.0,Technology,XLK,Electronics & Computer Distribution
+ARW,"Arrow Electronics, Inc.",10893251468.0,Technology,XLK,Electronics & Computer Distribution
+IBM,International Business Machines Corporation,220760930265.0,Technology,XLK,Information Technology Services
+CTSH,Cognizant Technology Solutions Corporation,26481615047.0,Technology,XLK,Information Technology Services
+FIS,"Fidelity National Information Services, Inc.",22134097958.0,Technology,XLK,Information Technology Services
+BR,"Broadridge Financial Solutions, Inc.",19498867676.0,Technology,XLK,Information Technology Services
+LDOS,"Leidos Holdings, Inc.",18049544420.0,Technology,XLK,Information Technology Services
+CDW,CDW Corporation,17429929533.0,Technology,XLK,Information Technology Services
+CACI,CACI International Inc,14818624881.0,Technology,XLK,Information Technology Services
+IT,"Gartner, Inc.",11435648064.0,Technology,XLK,Information Technology Services
+JKHY,"Jack Henry & Associates, Inc.",10892795082.0,Technology,XLK,Information Technology Services
+COHR,Coherent Corp.,63745159961.0,Technology,XLK,Scientific & Technical Instruments
+KEYS,"Keysight Technologies, Inc.",61149780578.0,Technology,XLK,Scientific & Technical Instruments
+TDY,Teledyne Technologies Incorporated,31506560268.0,Technology,XLK,Scientific & Technical Instruments
+MKSI,MKS Inc.,21010803797.0,Technology,XLK,Scientific & Technical Instruments
+FTV,Fortive Corporation,18610290744.0,Technology,XLK,Scientific & Technical Instruments
+TRMB,Trimble Inc.,13431159245.0,Technology,XLK,Scientific & Technical Instruments
+CGNX,Cognex Corporation,11040530750.0,Technology,XLK,Scientific & Technical Instruments
+LRCX,Lam Research Corporation,415889047560.0,Technology,XLK,Semiconductor Equipment & Materials
+AMAT,"Applied Materials, Inc.",402680343707.0,Technology,XLK,Semiconductor Equipment & Materials
+KLAC,KLA Corporation,266169710633.0,Technology,XLK,Semiconductor Equipment & Materials
+TER,"Teradyne, Inc.",65473942693.0,Technology,XLK,Semiconductor Equipment & Materials
+Q,"Qnity Electronics, Inc.",29770375669.0,Technology,XLK,Semiconductor Equipment & Materials
+ENTG,"Entegris, Inc.",24716928000.0,Technology,XLK,Semiconductor Equipment & Materials
+ONTO,Onto Innovation Inc.,16278418472.0,Technology,XLK,Semiconductor Equipment & Materials
+AMKR,"Amkor Technology, Inc.",14656211323.0,Technology,XLK,Semiconductor Equipment & Materials
+FORM,"FormFactor, Inc.",10280687410.0,Technology,XLK,Semiconductor Equipment & Materials
+NVDA,NVIDIA Corporation,5448872000000.0,Technology,XLK,Semiconductors
+AVGO,Broadcom Inc.,1869681442012.0,Technology,XLK,Semiconductors
+MU,"Micron Technology, Inc.",1097386149101.0,Technology,XLK,Semiconductors
+AMD,"Advanced Micro Devices, Inc.",839728836854.0,Technology,XLK,Semiconductors
+INTC,Intel Corporation,541719624878.0,Technology,XLK,Semiconductors
+TXN,Texas Instruments Incorporated,255325788052.0,Technology,XLK,Semiconductors
+MRVL,"Marvell Technology, Inc.",194437661234.0,Technology,XLK,Semiconductors
+ADI,"Analog Devices, Inc.",189666822506.0,Technology,XLK,Semiconductors
+QCOM,QUALCOMM Incorporated,174118281763.0,Technology,XLK,Semiconductors
+MPWR,"Monolithic Power Systems, Inc.",68898977430.0,Technology,XLK,Semiconductors
+ALAB,"Astera Labs, Inc.",55794544297.0,Technology,XLK,Semiconductors
+CBRS,Cerebras Systems Inc.,52021773698.0,Technology,XLK,Semiconductors
+CRDO,Credo Technology Group Holding Ltd,48465605690.0,Technology,XLK,Semiconductors
+MCHP,Microchip Technology Incorporated,42989998066.0,Technology,XLK,Semiconductors
+ON,ON Semiconductor Corporation,32180506858.0,Technology,XLK,Semiconductors
+GFS,GLOBALFOUNDRIES Inc.,30369253832.0,Technology,XLK,Semiconductors
+MTSI,"MACOM Technology Solutions Holdings, Inc.",24166817406.0,Technology,XLK,Semiconductors
+SITM,SiTime Corporation,21407871239.0,Technology,XLK,Semiconductors
+LSCC,Lattice Semiconductor Corporation,18529269285.0,Technology,XLK,Semiconductors
+SMTC,Semtech Corporation,13073766429.0,Technology,XLK,Semiconductors
+RMBS,Rambus Inc.,10938352663.0,Technology,XLK,Semiconductors
+SWKS,"Skyworks Solutions, Inc.",10475915083.0,Technology,XLK,Semiconductors
+CRM,"Salesforce, Inc.",160695990000.0,Technology,XLK,Software - Application
+UBER,"Uber Technologies, Inc.",155132441190.0,Technology,XLK,Software - Application
+NOW,"ServiceNow, Inc.",128216000000.0,Technology,XLK,Software - Application
+SNOW,Snowflake Inc.,114003672000.0,Technology,XLK,Software - Application
+ADP,"Automatic Data Processing, Inc.",108436836692.0,Technology,XLK,Software - Application
+ADBE,Adobe Inc.,104947950000.0,Technology,XLK,Software - Application
+INTU,Intuit Inc.,94550799420.0,Technology,XLK,Software - Application
+DDOG,"Datadog, Inc.",91729305631.0,Technology,XLK,Software - Application
+CDNS,"Cadence Design Systems, Inc.",89453154260.0,Technology,XLK,Software - Application
+ADSK,"Autodesk, Inc.",53100260000.0,Technology,XLK,Software - Application
+WDAY,"Workday, Inc.",49073960000.0,Technology,XLK,Software - Application
+PAYX,"Paychex, Inc.",43400422577.0,Technology,XLK,Software - Application
+ROP,"Roper Technologies, Inc.",39495075023.0,Technology,XLK,Software - Application
+STRF,Strategy Inc,36966359504.0,Technology,XLK,Software - Application
+ZM,"Zoom Communications, Inc.",31070885819.0,Technology,XLK,Software - Application
+FICO,Fair Isaac Corporation,23450280130.0,Technology,XLK,Software - Application
+U,Unity Software Inc.,20354113151.0,Technology,XLK,Software - Application
+SSNC,"SS&C Technologies Holdings, Inc.",19124382174.0,Technology,XLK,Software - Application
+QNT,Quantinuum Inc.,16593824312.0,Technology,XLK,Software - Application
+PTC,PTC Inc.,16248812585.0,Technology,XLK,Software - Application
+GWRE,"Guidewire Software, Inc.",14618984955.0,Technology,XLK,Software - Application
+DT,"Dynatrace, Inc.",14201564570.0,Technology,XLK,Software - Application
+FIG,"Figma, Inc.",13549110819.0,Technology,XLK,Software - Application
+TYL,"Tyler Technologies, Inc.",13458555327.0,Technology,XLK,Software - Application
+CHYM,"Chime Financial, Inc.",12122295254.0,Technology,XLK,Software - Application
+FROG,JFrog Ltd.,11857887079.0,Technology,XLK,Software - Application
+DOCU,"DocuSign, Inc.",11846203480.0,Technology,XLK,Software - Application
+MANH,"Manhattan Associates, Inc.",11508818423.0,Technology,XLK,Software - Application
+HUBS,"HubSpot, Inc.",11177010292.0,Technology,XLK,Software - Application
+BSY,"Bentley Systems, Incorporated",10947846297.0,Technology,XLK,Software - Application
+MSFT,Microsoft Corporation,3678615236241.0,Technology,XLK,Software - Infrastructure
+ORCL,Oracle Corporation,433568494920.0,Technology,XLK,Software - Infrastructure
+PLTR,Palantir Technologies Inc.,418053387659.0,Technology,XLK,Software - Infrastructure
+PANW,"Palo Alto Networks, Inc.",313180050000.0,Technology,XLK,Software - Infrastructure
+CRWD,"CrowdStrike Holdings, Inc.",220911350796.0,Technology,XLK,Software - Infrastructure
+FTNT,"Fortinet, Inc.",117401521617.0,Technology,XLK,Software - Infrastructure
+NET,"Cloudflare, Inc.",112442852403.0,Technology,XLK,Software - Infrastructure
+SNPS,"Synopsys, Inc.",80708535488.0,Technology,XLK,Software - Infrastructure
+CRWV,"CoreWeave, Inc.",58054742727.0,Technology,XLK,Software - Infrastructure
+XYZ,"Block, Inc.",49793889600.0,Technology,XLK,Software - Infrastructure
+NTAP,"NetApp, Inc.",40636191596.0,Technology,XLK,Software - Infrastructure
+MDB,"MongoDB, Inc.",37025228956.0,Technology,XLK,Software - Infrastructure
+TWLO,Twilio Inc.,36581617404.0,Technology,XLK,Software - Infrastructure
+ZS,"Zscaler, Inc.",29689868790.0,Technology,XLK,Software - Infrastructure
+CPAY,"Corpay, Inc.",27419448542.0,Technology,XLK,Software - Infrastructure
+VRSN,"VeriSign, Inc.",25666872000.0,Technology,XLK,Software - Infrastructure
+OKTA,"Okta, Inc.",25624419822.0,Technology,XLK,Software - Infrastructure
+IOT,Samsara Inc.,23186034163.0,Technology,XLK,Software - Infrastructure
+FFIV,"F5, Inc.",22832079782.0,Technology,XLK,Software - Infrastructure
+RBRK,"Rubrik, Inc.",21041854302.0,Technology,XLK,Software - Infrastructure
+TOST,"Toast, Inc.",20085500000.0,Technology,XLK,Software - Infrastructure
+NTNX,"Nutanix, Inc.",18004697502.0,Technology,XLK,Software - Infrastructure
+AKAM,"Akamai Technologies, Inc.",17963138959.0,Technology,XLK,Software - Infrastructure
+GEN,Gen Digital Inc.,17047758671.0,Technology,XLK,Software - Infrastructure
+DOCN,"DigitalOcean Holdings, Inc.",15275935136.0,Technology,XLK,Software - Infrastructure
+GDDY,GoDaddy Inc.,12020133587.0,Technology,XLK,Software - Infrastructure
+SAIL,"SailPoint, Inc.",11077083931.0,Technology,XLK,Software - Infrastructure
+FSLR,"First Solar, Inc.",24240885381.0,Technology,XLK,Solar
+NXT,Nextpower Inc.,15395994394.0,Technology,XLK,Solar
+STZ,"Constellation Brands, Inc.",23768942444.0,Consumer Defensive,XLP,Beverages - Brewers
+KO,The Coca-Cola Company,377376594104.0,Consumer Defensive,XLP,Beverages - Non-Alcoholic
+PEP,"PepsiCo, Inc.",192163082451.0,Consumer Defensive,XLP,Beverages - Non-Alcoholic
+MNST,Monster Beverage Corporation,137584342990.0,Consumer Defensive,XLP,Beverages - Non-Alcoholic
+KDP,Keurig Dr Pepper Inc.,42784370635.0,Consumer Defensive,XLP,Beverages - Non-Alcoholic
+COKE,"Coca-Cola Consolidated, Inc.",12587973638.0,Consumer Defensive,XLP,Beverages - Non-Alcoholic
+MDLZ,"Mondelez International, Inc.",81185955506.0,Consumer Defensive,XLP,Confectioners
+HSY,The Hershey Company,37014524533.0,Consumer Defensive,XLP,Confectioners
+WMT,Walmart Inc.,917327784197.0,Consumer Defensive,XLP,Discount Stores
+COST,Costco Wholesale Corporation,426227478524.0,Consumer Defensive,XLP,Discount Stores
+TGT,Target Corporation,70163442982.0,Consumer Defensive,XLP,Discount Stores
+DG,Dollar General Corporation,27193921842.0,Consumer Defensive,XLP,Discount Stores
+DLTR,"Dollar Tree, Inc.",24865469941.0,Consumer Defensive,XLP,Discount Stores
+BJ,"BJ's Wholesale Club Holdings, Inc.",11927895326.0,Consumer Defensive,XLP,Discount Stores
+ADM,Archer-Daniels-Midland Company,38773648452.0,Consumer Defensive,XLP,Farm Products
+BG,Bunge Global SA,21842023094.0,Consumer Defensive,XLP,Farm Products
+TSN,"Tyson Foods, Inc.",20464293953.0,Consumer Defensive,XLP,Farm Products
+SYY,Sysco Corporation,39684374638.0,Consumer Defensive,XLP,Food Distribution
+USFD,US Foods Holding Corp.,23562742349.0,Consumer Defensive,XLP,Food Distribution
+PFGC,Performance Food Group Company,16895417682.0,Consumer Defensive,XLP,Food Distribution
+KR,The Kroger Co.,34730974417.0,Consumer Defensive,XLP,Grocery Stores
+PG,The Procter & Gamble Company,335996798823.0,Consumer Defensive,XLP,Household & Personal Products
+CL,Colgate-Palmolive Company,73300041627.0,Consumer Defensive,XLP,Household & Personal Products
+KVUE,Kenvue Inc.,36878850566.0,Consumer Defensive,XLP,Household & Personal Products
+KMB,Kimberly-Clark Corporation,36713400005.0,Consumer Defensive,XLP,Household & Personal Products
+EL,The Estée Lauder Companies Inc.,31150542182.0,Consumer Defensive,XLP,Household & Personal Products
+CHD,"Church & Dwight Co., Inc.",24028755779.0,Consumer Defensive,XLP,Household & Personal Products
+CLX,The Clorox Company,12782407229.0,Consumer Defensive,XLP,Household & Personal Products
+KHC,The Kraft Heinz Company,30250364067.0,Consumer Defensive,XLP,Packaged Foods
+GIS,"General Mills, Inc.",20921369123.0,Consumer Defensive,XLP,Packaged Foods
+MKC,"McCormick & Company, Incorporated",14698114348.0,Consumer Defensive,XLP,Packaged Foods
+HRL,Hormel Foods Corporation,13504729094.0,Consumer Defensive,XLP,Packaged Foods
+SJM,The J. M. Smucker Company,12974246959.0,Consumer Defensive,XLP,Packaged Foods
+DAR,Darling Ingredients Inc.,10579107489.0,Consumer Defensive,XLP,Packaged Foods
+PM,Philip Morris International Inc.,296744412651.0,Consumer Defensive,XLP,Tobacco
+MO,"Altria Group, Inc.",109702175938.0,Consumer Defensive,XLP,Tobacco
+VICI,VICI Properties Inc.,29024404534.0,Real Estate,XLRE,REIT - Diversified
+WPC,W. P. Carey Inc.,16316244874.0,Real Estate,XLRE,REIT - Diversified
+WELL,Welltower Inc.,169749850860.0,Real Estate,XLRE,REIT - Healthcare Facilities
+VTR,"Ventas, Inc.",46944850776.0,Real Estate,XLRE,REIT - Healthcare Facilities
+DOC,"Healthpeak Properties, Inc.",14335271735.0,Real Estate,XLRE,REIT - Healthcare Facilities
+OHI,"Omega Healthcare Investors, Inc.",14099194890.0,Real Estate,XLRE,REIT - Healthcare Facilities
+AHR,"American Healthcare REIT, Inc.",11839513470.0,Real Estate,XLRE,REIT - Healthcare Facilities
+HST,"Host Hotels & Resorts, Inc.",15689348737.0,Real Estate,XLRE,REIT - Hotel & Motel
+PLD,"Prologis, Inc.",133707158280.0,Real Estate,XLRE,REIT - Industrial
+PSA,Public Storage,57240196205.0,Real Estate,XLRE,REIT - Industrial
+EXR,Extra Space Storage Inc.,31246767628.0,Real Estate,XLRE,REIT - Industrial
+EGP,"EastGroup Properties, Inc.",10919209750.0,Real Estate,XLRE,REIT - Industrial
+AGNCN,AGNC Investment Corp.,30798807993.0,Real Estate,XLRE,REIT - Mortgage
+NLY,"Annaly Capital Management, Inc.",17584157932.0,Real Estate,XLRE,REIT - Mortgage
+BXP,"BXP, Inc.",10928833508.0,Real Estate,XLRE,REIT - Office
+AVB,AvalonBay Communities Inc,26283393070.0,Real Estate,XLRE,REIT - Residential
+EQR,Equity Residential,24735082662.0,Real Estate,XLRE,REIT - Residential
+ESS,"Essex Property Trust, Inc.",18478461581.0,Real Estate,XLRE,REIT - Residential
+INVH,Invitation Homes Inc.,17889977516.0,Real Estate,XLRE,REIT - Residential
+MAA,"Mid-America Apartment Communities, Inc.",15487771040.0,Real Estate,XLRE,REIT - Residential
+SUI,"Sun Communities, Inc.",15016839989.0,Real Estate,XLRE,REIT - Residential
+ELS,"Equity LifeStyle Properties, Inc.",12732579653.0,Real Estate,XLRE,REIT - Residential
+AMH,American Homes 4 Rent,12240852492.0,Real Estate,XLRE,REIT - Residential
+UDR,"UDR, Inc.",12188764583.0,Real Estate,XLRE,REIT - Residential
+CPT,Camden Property Trust,11095522666.0,Real Estate,XLRE,REIT - Residential
+SPG,"Simon Property Group, Inc.",71045441664.0,Real Estate,XLRE,REIT - Retail
+O,Realty Income Corporation,59365719390.0,Real Estate,XLRE,REIT - Retail
+KIM,Kimco Realty Corporation,16373968595.0,Real Estate,XLRE,REIT - Retail
+REG,Regency Centers Corporation,14047177160.0,Real Estate,XLRE,REIT - Retail
+FRT,Federal Realty Investment Trust,10286804456.0,Real Estate,XLRE,REIT - Retail
+EQIX,"Equinix, Inc.",108746065141.0,Real Estate,XLRE,REIT - Specialty
+AMT,American Tower Corporation,81813265228.0,Real Estate,XLRE,REIT - Specialty
+DLR,"Digital Realty Trust, Inc.",74062740626.0,Real Estate,XLRE,REIT - Specialty
+IRM,Iron Mountain Incorporated,38531674957.0,Real Estate,XLRE,REIT - Specialty
+CCI,Crown Castle Inc.,32326104255.0,Real Estate,XLRE,REIT - Specialty
+SBAC,SBA Communications Corporation,19647517972.0,Real Estate,XLRE,REIT - Specialty
+WY,Weyerhaeuser Company,17701276160.0,Real Estate,XLRE,REIT - Specialty
+LAMR,Lamar Advertising Company,15787929371.0,Real Estate,XLRE,REIT - Specialty
+GLPI,"Gaming and Leisure Properties, Inc.",12675386274.0,Real Estate,XLRE,REIT - Specialty
+CBRE,"CBRE Group, Inc.",44264480052.0,Real Estate,XLRE,Real Estate Services
+JLL,Jones Lang LaSalle Incorporated,17252888625.0,Real Estate,XLRE,Real Estate Services
+CSGP,"CoStar Group, Inc.",13120297899.0,Real Estate,XLRE,Real Estate Services
+SRE,Sempra,56503529071.0,Utilities,XLU,Utilities - Diversified
+AES,The AES Corporation,10508951020.0,Utilities,XLU,Utilities - Diversified
+CEG,Constellation Energy Corporation,100091834568.0,Utilities,XLU,Utilities - Independent Power Producers
+VST,Vistra Corp.,49717641435.0,Utilities,XLU,Utilities - Independent Power Producers
+NRG,"NRG Energy, Inc.",26536971374.0,Utilities,XLU,Utilities - Independent Power Producers
+TLN,Talen Energy Corporation,17380418310.0,Utilities,XLU,Utilities - Independent Power Producers
+NEE,"NextEra Energy, Inc.",179790461834.0,Utilities,XLU,Utilities - Regulated Electric
+SO,The Southern Company,106753683245.0,Utilities,XLU,Utilities - Regulated Electric
+DUK,Duke Energy Corporation,96620695757.0,Utilities,XLU,Utilities - Regulated Electric
+AEP,"American Electric Power Company, Inc.",68376307411.0,Utilities,XLU,Utilities - Regulated Electric
+D,"Dominion Energy, Inc.",60484999513.0,Utilities,XLU,Utilities - Regulated Electric
+ETR,Entergy Corporation,50321540744.0,Utilities,XLU,Utilities - Regulated Electric
+XEL,Xcel Energy Inc.,49452298006.0,Utilities,XLU,Utilities - Regulated Electric
+PCG,PG&E Corporation,47813171249.0,Utilities,XLU,Utilities - Regulated Electric
+EXC,Exelon Corporation,47339166927.0,Utilities,XLU,Utilities - Regulated Electric
+ED,"Consolidated Edison, Inc.",40237355270.0,Utilities,XLU,Utilities - Regulated Electric
+PEG,Public Service Enterprise Group Incorporated,37899859081.0,Utilities,XLU,Utilities - Regulated Electric
+WEC,"WEC Energy Group, Inc.",36012873809.0,Utilities,XLU,Utilities - Regulated Electric
+PPLC,PPL Corporation,35745879948.0,Utilities,XLU,Utilities - Regulated Electric
+AEE,Ameren Corporation,30380778365.0,Utilities,XLU,Utilities - Regulated Electric
+DTE,DTE Energy Company,29307123638.0,Utilities,XLU,Utilities - Regulated Electric
+FTS,Fortis Inc.,28957812000.0,Utilities,XLU,Utilities - Regulated Electric
+EIX,Edison International,27479566240.0,Utilities,XLU,Utilities - Regulated Electric
+FE,FirstEnergy Corp.,27433319176.0,Utilities,XLU,Utilities - Regulated Electric
+ES,Eversource Energy,27256185199.0,Utilities,XLU,Utilities - Regulated Electric
+CNP,"CenterPoint Energy, Inc.",26895549359.0,Utilities,XLU,Utilities - Regulated Electric
+CMS,CMS Energy Corporation,22298470141.0,Utilities,XLU,Utilities - Regulated Electric
+EVRG,"Evergy, Inc.",19374559463.0,Utilities,XLU,Utilities - Regulated Electric
+LNT,Alliant Energy Corporation,18305499749.0,Utilities,XLU,Utilities - Regulated Electric
+PNW,Pinnacle West Capital Corporation,12299095306.0,Utilities,XLU,Utilities - Regulated Electric
+ATO,Atmos Energy Corporation,28714534926.0,Utilities,XLU,Utilities - Regulated Gas
+NI,NiSource Inc.,20381304250.0,Utilities,XLU,Utilities - Regulated Gas
+AWK,"American Water Works Company, Inc.",27066888302.0,Utilities,XLU,Utilities - Regulated Water
+WTRG,"Essential Utilities, Inc.",11458980070.0,Utilities,XLU,Utilities - Regulated Water
+BEPC,Brookfield Renewable Corporation,13379461307.0,Utilities,XLU,Utilities - Renewable
+VRTX,Vertex Pharmaceuticals Incorporated,128187862313.0,Healthcare,XLV,Biotechnology
+REGN,"Regeneron Pharmaceuticals, Inc.",82722273758.0,Healthcare,XLV,Biotechnology
+RVMD,"Revolution Medicines, Inc.",43662471711.0,Healthcare,XLV,Biotechnology
+RPRX,Royalty Pharma plc,33695070554.0,Healthcare,XLV,Biotechnology
+ALNY,"Alnylam Pharmaceuticals, Inc.",30595454831.0,Healthcare,XLV,Biotechnology
+INSM,Insmed Incorporated,27022527181.0,Healthcare,XLV,Biotechnology
+MRNA,"Moderna, Inc.",25279616491.0,Healthcare,XLV,Biotechnology
+INCY,Incyte Corporation,24356161159.0,Healthcare,XLV,Biotechnology
+BBIO,"BridgeBio Pharma, Inc.",15611629674.0,Healthcare,XLV,Biotechnology
+BMRN,BioMarin Pharmaceutical Inc.,13039128406.0,Healthcare,XLV,Biotechnology
+EXEL,"Exelixis, Inc.",12696333898.0,Healthcare,XLV,Biotechnology
+CORT,Corcept Therapeutics Incorporated,12374023505.0,Healthcare,XLV,Biotechnology
+ARWR,"Arrowhead Pharmaceuticals, Inc.",12238287021.0,Healthcare,XLV,Biotechnology
+MDGL,"Madrigal Pharmaceuticals, Inc.",11726730193.0,Healthcare,XLV,Biotechnology
+TECH,Bio-Techne Corporation,11335577572.0,Healthcare,XLV,Biotechnology
+HALO,"Halozyme Therapeutics, Inc.",11197712680.0,Healthcare,XLV,Biotechnology
+AXSM,"Axsome Therapeutics, Inc.",11192209382.0,Healthcare,XLV,Biotechnology
+SMMT,Summit Therapeutics Inc.,10649957187.0,Healthcare,XLV,Biotechnology
+CYTK,"Cytokinetics, Incorporated",10305805976.0,Healthcare,XLV,Biotechnology
+PRAX,"Praxis Precision Medicines, Inc.",10241330798.0,Healthcare,XLV,Biotechnology
+APGE,Apogee Therapeutics Inc,10183784744.0,Healthcare,XLV,Biotechnology
+PTGX,"Protagonist Therapeutics, Inc.",10036255004.0,Healthcare,XLV,Biotechnology
+TMO,Thermo Fisher Scientific Inc.,217518630881.0,Healthcare,XLV,Diagnostics & Research
+DHR,Danaher Corporation,142319526632.0,Healthcare,XLV,Diagnostics & Research
+NTRA,"Natera, Inc.",44674602608.0,Healthcare,XLV,Diagnostics & Research
+IDXX,"IDEXX Laboratories, Inc.",43405243671.0,Healthcare,XLV,Diagnostics & Research
+A,"Agilent Technologies, Inc.",41949616642.0,Healthcare,XLV,Diagnostics & Research
+WAT,Waters Corporation,40494923911.0,Healthcare,XLV,Diagnostics & Research
+IQV,IQVIA Holdings Inc.,38954236000.0,Healthcare,XLV,Diagnostics & Research
+ILMN,"Illumina, Inc.",28824390000.0,Healthcare,XLV,Diagnostics & Research
+DGX,Quest Diagnostics Incorporated,25871515584.0,Healthcare,XLV,Diagnostics & Research
+LH,Labcorp Holdings Inc.,25800343000.0,Healthcare,XLV,Diagnostics & Research
+GH,"Guardant Health, Inc.",21096979886.0,Healthcare,XLV,Diagnostics & Research
+MEDP,"Medpace Holdings, Inc.",16146892418.0,Healthcare,XLV,Diagnostics & Research
+CRL,"Charles River Laboratories International, Inc.",13369271104.0,Healthcare,XLV,Diagnostics & Research
+RVTY,"Revvity, Inc.",13037755093.0,Healthcare,XLV,Diagnostics & Research
+LLY,Eli Lilly and Company,1110951953830.0,Healthcare,XLV,Drug Manufacturers - General
+JNJ,Johnson & Johnson,627417099729.0,Healthcare,XLV,Drug Manufacturers - General
+ABBV,AbbVie Inc.,440825077916.0,Healthcare,XLV,Drug Manufacturers - General
+MRK,"Merck & Co., Inc.",335140595306.0,Healthcare,XLV,Drug Manufacturers - General
+AMGN,Amgen Inc.,224475814796.0,Healthcare,XLV,Drug Manufacturers - General
+GILD,"Gilead Sciences, Inc.",171560195246.0,Healthcare,XLV,Drug Manufacturers - General
+PFE,Pfizer Inc.,152694255449.0,Healthcare,XLV,Drug Manufacturers - General
+BMY,Bristol-Myers Squibb Company,130386476492.0,Healthcare,XLV,Drug Manufacturers - General
+BIIB,Biogen Inc.,31003221400.0,Healthcare,XLV,Drug Manufacturers - General
+ZTS,Zoetis Inc.,30491769592.0,Healthcare,XLV,Drug Manufacturers - Specialty & Generic
+UTHR,United Therapeutics Corporation,21433765513.0,Healthcare,XLV,Drug Manufacturers - Specialty & Generic
+VTRS,Viatris Inc.,18641629723.0,Healthcare,XLV,Drug Manufacturers - Specialty & Generic
+NBIX,"Neurocrine Biosciences, Inc.",15523862922.0,Healthcare,XLV,Drug Manufacturers - Specialty & Generic
+ELAN,Elanco Animal Health Incorporated,11826048716.0,Healthcare,XLV,Drug Manufacturers - Specialty & Generic
+BTSGU,"BrightSpring Health Services, Inc.",40200077844.0,Healthcare,XLV,Health Information Services
+VEEV,Veeva Systems Inc.,39779682638.0,Healthcare,XLV,Health Information Services
+UNH,UnitedHealth Group Incorporated,360590777885.0,Healthcare,XLV,Healthcare Plans
+CVS,CVS Health Corporation,124264761052.0,Healthcare,XLV,Healthcare Plans
+ELV,"Elevance Health, Inc.",86817114173.0,Healthcare,XLV,Healthcare Plans
+CI,The Cigna Group,74663791724.0,Healthcare,XLV,Healthcare Plans
+HUM,Humana Inc.,46717243827.0,Healthcare,XLV,Healthcare Plans
+CNC,Centene Corporation,33329842650.0,Healthcare,XLV,Healthcare Plans
+MOH,"Molina Healthcare, Inc.",11088846000.0,Healthcare,XLV,Healthcare Plans
+OSCR,"Oscar Health, Inc.",10111210200.0,Healthcare,XLV,Healthcare Plans
+HCA,"HCA Healthcare, Inc.",87613827020.0,Healthcare,XLV,Medical Care Facilities
+THC,Tenet Healthcare Corporation,21571040100.0,Healthcare,XLV,Medical Care Facilities
+EHC,Encompass Health Corporation,12192571729.0,Healthcare,XLV,Medical Care Facilities
+DVA,DaVita Inc.,11487828000.0,Healthcare,XLV,Medical Care Facilities
+ENSG,"The Ensign Group, Inc.",10587004136.0,Healthcare,XLV,Medical Care Facilities
+UHS,"Universal Health Services, Inc.",10020386280.0,Healthcare,XLV,Medical Care Facilities
+ABT,Abbott Laboratories,192505141680.0,Healthcare,XLV,Medical Devices
+SYK,Stryker Corporation,130111812934.0,Healthcare,XLV,Medical Devices
+MDT,Medtronic plc,116829724491.0,Healthcare,XLV,Medical Devices
+BSX,Boston Scientific Corporation,75113566333.0,Healthcare,XLV,Medical Devices
+BRKRP,Bruker Corporation,64815176620.0,Healthcare,XLV,Medical Devices
+EW,Edwards Lifesciences Corporation,52798240000.0,Healthcare,XLV,Medical Devices
+DXCM,"DexCom, Inc.",33868128659.0,Healthcare,XLV,Medical Devices
+GEHC,GE HealthCare Technologies Inc.,33284759910.0,Healthcare,XLV,Medical Devices
+STE,STERIS plc,22744825661.0,Healthcare,XLV,Medical Devices
+ZBH,"Zimmer Biomet Holdings, Inc.",19197748398.0,Healthcare,XLV,Medical Devices
+PEN,"Penumbra, Inc.",12881128782.0,Healthcare,XLV,Medical Devices
+GMED,"Globus Medical, Inc.",11533098413.0,Healthcare,XLV,Medical Devices
+GKOS,Glaukos Corporation,10884305895.0,Healthcare,XLV,Medical Devices
+MCK,McKesson Corporation,101317025447.0,Healthcare,XLV,Medical Distribution
+COR,"Cencora, Inc.",59885380920.0,Healthcare,XLV,Medical Distribution
+CAH,"Cardinal Health, Inc.",54694833954.0,Healthcare,XLV,Medical Distribution
+HSIC,"Henry Schein, Inc.",10004556075.0,Healthcare,XLV,Medical Distribution
+ISRG,"Intuitive Surgical, Inc.",139371718771.0,Healthcare,XLV,Medical Instruments & Supplies
+BDX,"Becton, Dickinson and Company",49955739120.0,Healthcare,XLV,Medical Instruments & Supplies
+MDLN,Medline Inc.,46987645764.0,Healthcare,XLV,Medical Instruments & Supplies
+RMD,ResMed Inc.,32559355953.0,Healthcare,XLV,Medical Instruments & Supplies
+WST,"West Pharmaceutical Services, Inc.",24590698758.0,Healthcare,XLV,Medical Instruments & Supplies
+SOLV,Solventum Corporation,15080120152.0,Healthcare,XLV,Medical Instruments & Supplies
+COO,"The Cooper Companies, Inc.",14855483087.0,Healthcare,XLV,Medical Instruments & Supplies
+BAX,Baxter International Inc.,13819303053.0,Healthcare,XLV,Medical Instruments & Supplies
+ALGN,"Align Technology, Inc.",12880235566.0,Healthcare,XLV,Medical Instruments & Supplies
+RL,Ralph Lauren Corporation,23172724392.0,Consumer Cyclical,XLY,Apparel Manufacturing
+TJX,"The TJX Companies, Inc.",168036593281.0,Consumer Cyclical,XLY,Apparel Retail
+ROST,"Ross Stores, Inc.",78706844807.0,Consumer Cyclical,XLY,Apparel Retail
+BURL,"Burlington Stores, Inc.",21883116760.0,Consumer Cyclical,XLY,Apparel Retail
+CVNA,Carvana Co.,83184056374.0,Consumer Cyclical,XLY,Auto & Truck Dealerships
+PAG,"Penske Automotive Group, Inc.",14435982629.0,Consumer Cyclical,XLY,Auto & Truck Dealerships
+TSLA,"Tesla, Inc.",1351811586544.0,Consumer Cyclical,XLY,Auto Manufacturers
+GM,General Motors Company,76136470213.0,Consumer Cyclical,XLY,Auto Manufacturers
+F,Ford Motor Company,56283605403.0,Consumer Cyclical,XLY,Auto Manufacturers
+RIVN,"Rivian Automotive, Inc.",22239139277.0,Consumer Cyclical,XLY,Auto Manufacturers
+NIO,NIO Inc.,11325614939.0,Consumer Cyclical,XLY,Auto Manufacturers
+ORLY,"O'Reilly Automotive, Inc.",73655880112.0,Consumer Cyclical,XLY,Auto Parts
+AZO,"AutoZone, Inc.",49384198875.0,Consumer Cyclical,XLY,Auto Parts
+GPC,Genuine Parts Company,18615203123.0,Consumer Cyclical,XLY,Auto Parts
+AUR,"Aurora Innovation, Inc.",14009045323.0,Consumer Cyclical,XLY,Auto Parts
+BWA,BorgWarner Inc.,13983731866.0,Consumer Cyclical,XLY,Auto Parts
+MOD,Modine Manufacturing Company,11127112326.0,Consumer Cyclical,XLY,Auto Parts
+ALSN,"Allison Transmission Holdings, Inc.",10394097643.0,Consumer Cyclical,XLY,Auto Parts
+NKE,"NIKE, Inc.",60422902173.0,Consumer Cyclical,XLY,Footwear & Accessories
+DECK,Deckers Outdoor Corporation,12698800391.0,Consumer Cyclical,XLY,Footwear & Accessories
+SN,"SharkNinja, Inc.",26075324275.0,Consumer Cyclical,XLY,"Furnishings, Fixtures & Appliances"
+SGI,Somnigroup International Inc.,13896744335.0,Consumer Cyclical,XLY,"Furnishings, Fixtures & Appliances"
+DKNG,DraftKings Inc.,12977308815.0,Consumer Cyclical,XLY,Gambling
+HD,"The Home Depot, Inc.",337882958863.0,Consumer Cyclical,XLY,Home Improvement Retail
+LOW,"Lowe's Companies, Inc.",122497667247.0,Consumer Cyclical,XLY,Home Improvement Retail
+AMZN,"Amazon.com, Inc.",2833025259686.0,Consumer Cyclical,XLY,Internet Retail
+DASH,"DoorDash, Inc.",94034318288.0,Consumer Cyclical,XLY,Internet Retail
+SE,Sea Limited,74686362613.0,Consumer Cyclical,XLY,Internet Retail
+EBAY,eBay Inc.,45897300000.0,Consumer Cyclical,XLY,Internet Retail
+CPNG,"Coupang, Inc.",28975888636.0,Consumer Cyclical,XLY,Internet Retail
+W,Wayfair Inc.,13920064954.0,Consumer Cyclical,XLY,Internet Retail
+CART,Maplebear Inc.,11315723275.0,Consumer Cyclical,XLY,Internet Retail
+HAS,"Hasbro, Inc.",13638999959.0,Consumer Cyclical,XLY,Leisure
+LTH,"Life Time Group Holdings, Inc.",10113887766.0,Consumer Cyclical,XLY,Leisure
+MAR,"Marriott International, Inc.",93020550255.0,Consumer Cyclical,XLY,Lodging
+HLT,Hilton Worldwide Holdings Inc.,73643489201.0,Consumer Cyclical,XLY,Lodging
+H,Hyatt Hotels Corporation,17054964481.0,Consumer Cyclical,XLY,Lodging
+TPR,"Tapestry, Inc.",26059727212.0,Consumer Cyclical,XLY,Luxury Goods
+PKG,Packaging Corporation of America,22762833429.0,Consumer Cyclical,XLY,Packaging & Containers
+IP,International Paper Company,21574677522.0,Consumer Cyclical,XLY,Packaging & Containers
+BALL,Ball Corporation,16363961530.0,Consumer Cyclical,XLY,Packaging & Containers
+AVY,Avery Dennison Corporation,13560772248.0,Consumer Cyclical,XLY,Packaging & Containers
+CCK,"Crown Holdings, Inc.",12944676019.0,Consumer Cyclical,XLY,Packaging & Containers
+ROL,"Rollins, Inc.",17417463625.0,Consumer Cyclical,XLY,Personal Services
+SCI,Service Corporation International,11507458295.0,Consumer Cyclical,XLY,Personal Services
+DHI,"D.R. Horton, Inc.",41622345542.0,Consumer Cyclical,XLY,Residential Construction
+PHM,"PulteGroup, Inc.",24402571657.0,Consumer Cyclical,XLY,Residential Construction
+LEN,Lennar Corporation,20916925180.0,Consumer Cyclical,XLY,Residential Construction
+NVR,"NVR, Inc.",16809750340.0,Consumer Cyclical,XLY,Residential Construction
+TOL,"Toll Brothers, Inc.",13858945170.0,Consumer Cyclical,XLY,Residential Construction
+LVS,Las Vegas Sands Corp.,29943225736.0,Consumer Cyclical,XLY,Resorts & Casinos
+MGM,MGM Resorts International,11392050606.0,Consumer Cyclical,XLY,Resorts & Casinos
+WYNN,"Wynn Resorts, Limited",10557913044.0,Consumer Cyclical,XLY,Resorts & Casinos
+MCD,McDonald's Corporation,193065838903.0,Consumer Cyclical,XLY,Restaurants
+SBUX,Starbucks Corporation,122766600000.0,Consumer Cyclical,XLY,Restaurants
+CMG,"Chipotle Mexican Grill, Inc.",42391503000.0,Consumer Cyclical,XLY,Restaurants
+YUM,"Yum! Brands, Inc.",40419379699.0,Consumer Cyclical,XLY,Restaurants
+DRI,"Darden Restaurants, Inc.",25697203297.0,Consumer Cyclical,XLY,Restaurants
+YUMC,"Yum China Holdings, Inc.",16297582692.0,Consumer Cyclical,XLY,Restaurants
+TXRH,"Texas Roadhouse, Inc.",13594235775.0,Consumer Cyclical,XLY,Restaurants
+DPZ,"Domino's Pizza, Inc.",11455212378.0,Consumer Cyclical,XLY,Restaurants
+EAT,"Brinker International, Inc.",10170839399.0,Consumer Cyclical,XLY,Restaurants
+CASY,"Casey's General Stores, Inc.",31322809455.0,Consumer Cyclical,XLY,Specialty Retail
+WSM,"Williams-Sonoma, Inc.",28445226285.0,Consumer Cyclical,XLY,Specialty Retail
+ULTA,"Ulta Beauty, Inc.",21956790593.0,Consumer Cyclical,XLY,Specialty Retail
+TSCO,Tractor Supply Company,18668868109.0,Consumer Cyclical,XLY,Specialty Retail
+BBY,"Best Buy Co., Inc.",18214495029.0,Consumer Cyclical,XLY,Specialty Retail
+DKS,"DICK'S Sporting Goods, Inc.",18076827398.0,Consumer Cyclical,XLY,Specialty Retail
+FIVE,"Five Below, Inc.",13521925134.0,Consumer Cyclical,XLY,Specialty Retail
+MUSA,Murphy USA Inc.,10460623085.0,Consumer Cyclical,XLY,Specialty Retail
+BKNG,Booking Holdings Inc.,159337748830.0,Consumer Cyclical,XLY,Travel Services
+ABNB,"Airbnb, Inc.",110212492629.0,Consumer Cyclical,XLY,Travel Services
+RCL,Royal Caribbean Cruises Ltd.,81572885620.0,Consumer Cyclical,XLY,Travel Services
+VIK,Viking Holdings Ltd,43682573962.0,Consumer Cyclical,XLY,Travel Services
+CCL,Carnival Corporation Ltd.,38514533226.0,Consumer Cyclical,XLY,Travel Services
+EXPE,"Expedia Group, Inc.",38091637977.0,Consumer Cyclical,XLY,Travel Services

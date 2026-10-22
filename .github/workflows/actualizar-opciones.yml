@@ -1,0 +1,47 @@
+name: Actualizar opciones
+
+# Put/Call de cada empresa (datos/put_call.csv) desde Cboe; tarda ~35 minutos.
+# El open interest cambia una vez al día: la OCC lo publica de noche y Cboe lo muestra en la mañana.
+# Lun-vie a las 8:40 NY y, de respaldo, a las 11:40 NY (horas UTC con horario de verano; en invierno
+# corren una hora antes). El respaldo no hace nada si el de la mañana ya bajó los datos del día.
+on:
+  schedule:
+    - cron: "40 12 * * 1-5"
+    - cron: "40 15 * * 1-5"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: opciones
+  cancel-in-progress: false
+
+jobs:
+  opciones:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Descargar put/call
+        run: |
+          pip install -r requirements.txt
+          python scripts/actualizar_opciones.py --si-falta
+
+      - name: Publicar
+        run: |
+          git add datos/put_call.csv
+          if git diff --cached --quiet; then echo "Nada cambió: no se publica."; exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Put/call $(TZ=America/New_York date '+%Y-%m-%d %H:%M NY')"
+          for i in 1 2 3; do git pull --rebase -X theirs origin main && git push && exit 0; git rebase --abort 2>/dev/null; sleep 15; done
+          exit 1
