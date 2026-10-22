@@ -25,7 +25,7 @@ respaldo. Si una corrida llega repetida, no pasa nada: los precios solo hacen co
 Put/Call no hace nada si ya se bajó ese día.
 
 **Token.** En GitHub → Settings → Developer settings → Fine-grained tokens → Generate new token:
-- Repository access: *Only select repositories* → `freddync/fdash`
+- Repository access: *Only select repositories* → `freddync/freddydash`
 - Permissions → Repository → **Actions: Read and write**
 - Al vencer, crear otro y reemplazarlo en los tres trabajos de cron-job.org.
 
@@ -37,7 +37,7 @@ Put/Call no hace nada si ya se bajó ese día.
 | Fdash opciones | lun-vie, 8:40 | `.../workflows/actualizar-opciones.yml/dispatches` |
 | Fdash historia | día 1 de cada mes, 2:00 | `.../workflows/actualizar-historia.yml/dispatches` |
 
-donde `...` es `https://api.github.com/repos/freddync/fdash/actions`. En la pestaña *Advanced* de cada trabajo:
+donde `...` es `https://api.github.com/repos/freddync/freddydash/actions`. En la pestaña *Advanced* de cada trabajo:
 
 - Request method: **POST**
 - Headers:
