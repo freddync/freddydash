@@ -77,3 +77,22 @@ def historial(ticker, rango="2y"):
         return _velas(res)
     except Exception:
         return pd.DataFrame()
+
+
+def noticias(ticker, n=10):
+    """Últimas noticias del ticker según la búsqueda de Yahoo Finance: lista de dicts con titulo, fuente,
+    link, fecha (hora de Nueva York) y otros (los demás tickers que menciona)."""
+    r = requests.get("https://query2.finance.yahoo.com/v1/finance/search",
+                     params={"q": ticker, "newsCount": n, "quotesCount": 0}, headers=CABECERAS, timeout=15)
+    r.raise_for_status()
+    out = []
+    for x in r.json().get("news", []):
+        hora = x.get("providerPublishTime")
+        out.append({
+            "titulo": x.get("title", ""),
+            "fuente": x.get("publisher", ""),
+            "link": x.get("link", ""),
+            "fecha": pd.to_datetime(hora, unit="s", utc=True).tz_convert("America/New_York") if hora else None,
+            "otros": [t for t in x.get("relatedTickers") or [] if t != ticker],
+        })
+    return out

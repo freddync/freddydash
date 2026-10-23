@@ -104,6 +104,38 @@ def grafico_detalle(h, ticker):
     return fig
 
 
+@st.cache_data(ttl=1800, show_spinner="Buscando noticias…")
+def noticias(ticker):
+    try:
+        return yahoo.noticias(ticker), None
+    except Exception as e:
+        return None, f"{type(e).__name__}: {e}"
+
+
+def _md(texto):
+    """Texto tal cual en markdown: sin que $ se lea como fórmula ni [] como enlace."""
+    for c in ("\\", "$", "[", "]", "*", "_"):
+        texto = texto.replace(c, "\\" + c)
+    return texto
+
+
+def mostrar_noticias(ticker):
+    with st.expander("📰 Últimas noticias", expanded=False):
+        notas, error = noticias(ticker)
+        if error:
+            st.caption(f"No se pudieron cargar las noticias: {error}")
+        elif not notas:
+            st.caption("Yahoo no tiene noticias recientes para esta empresa.")
+        else:
+            for n in notas:
+                cuando = f"{n['fecha']:%d-%m-%Y %H:%M} NY" if n["fecha"] is not None else ""
+                otros = f" · también: {', '.join(n['otros'][:4])}" if n["otros"] else ""
+                st.markdown(f"[{_md(n['titulo'])}]({n['link']})  \n"
+                            f"<small style='color:#8b93a3'>{_md(n['fuente'])} · {cuando}{otros}</small>",
+                            unsafe_allow_html=True)
+            st.caption("Fuente: Yahoo Finance (se actualiza cada 30 minutos).")
+
+
 @st.dialog("Empresa", width="large")
 def ver_empresa(fila):
     st.subheader(f"{fila['Nombre']} ({fila['Ticker']})")
@@ -115,6 +147,7 @@ def ver_empresa(fila):
     pc = f"{fila['Put/Call']:.2f}" if pd.notna(fila["Put/Call"]) else "sin datos"
     st.markdown(f"**RSI 5:** {fila['RSI 5']:.1f} · **MACD 6/13/5:** {fila['MACD 6/13/5']} · **Put/Call:** {pc} · "
                 f"**Último cierre:** ${h['Close'].iloc[-1]:,.2f} ({h.index[-1]:%d-%m-%Y})")
+    mostrar_noticias(fila["Ticker"])
     st.plotly_chart(grafico_detalle(h, fila["Ticker"]), width="stretch")
 
 
