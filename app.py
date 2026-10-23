@@ -4,10 +4,34 @@ Top: el mercado desde arriba (sectores → industrias).
 Down: el análisis de cada empresa.
 Macro: el escenario (tendencias del mercado y economía).
 """
+import importlib
+import sys
+from pathlib import Path
+
 import pandas as pd
 import streamlit as st
 
-from fuentes import almacen
+# Streamlit vuelve a correr app.py y la página cuando cambia el código (al publicar en GitHub, por ejemplo),
+# pero los módulos propios quedan en memoria con su versión anterior. Si alguno cambió, se recargan todos,
+# primero los que no dependen de otros, para que nadie quede usando funciones viejas.
+ORDEN = ["fuentes.yahoo", "fuentes.fred", "fuentes.cboe", "fuentes.almacen", "bloques.series", "bloques.indicadores",
+         "bloques.comun", "bloques.relativo", "bloques.volatilidad", "bloques.tendencia", "bloques.tasas",
+         "bloques.commodities", "bloques.sectores", "bloques.industrias", "bloques.empresas"]
+
+
+def _recargar_si_cambiaron():
+    propios = sorted((n for n in sys.modules if n.split(".")[0] in ("fuentes", "bloques") and "." in n),
+                     key=lambda n: ORDEN.index(n) if n in ORDEN else len(ORDEN))
+    fecha = {n: Path(sys.modules[n].__file__).stat().st_mtime for n in propios}
+    if all(getattr(sys.modules[n], "_fecha_archivo", None) == fecha[n] for n in propios):
+        return
+    for n in propios:
+        importlib.reload(sys.modules[n])
+        sys.modules[n]._fecha_archivo = fecha[n]
+
+
+_recargar_si_cambiaron()
+from fuentes import almacen  # noqa: E402
 
 st.set_page_config(page_title="Fdash", page_icon="📊", layout="wide")
 
