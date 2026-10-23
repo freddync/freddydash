@@ -4,11 +4,9 @@ import plotly.graph_objects as go
 import streamlit as st
 
 from bloques.comun import avisar_faltantes, explicacion, layout, recortar
+from bloques.series import FRED as IDS, PLAZOS
 from fuentes import almacen
 
-# Curva a plazo constante: todos los plazos con la misma metodología del Tesoro
-PLAZOS = {"3M": "DGS3MO", "1A": "DGS1", "2A": "DGS2", "5A": "DGS5", "10A": "DGS10", "30A": "DGS30"}
-IDS = ["DFEDTAR", "DFEDTARU", "CPIAUCSL", *PLAZOS.values()]
 
 
 COLORES = {

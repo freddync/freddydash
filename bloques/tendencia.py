@@ -3,8 +3,8 @@ import plotly.graph_objects as go
 import streamlit as st
 
 from bloques.comun import avisar_faltantes, cierres, explicacion, layout, recortar
+from bloques.series import ETFS
 
-ETFS = {"SPY": "S&P 500", "QQQ": "Nasdaq 100", "IWM": "Russell 2000", "RSP": "S&P 500 pesos iguales"}
 RATIOS = {"RSP/SPY": ("RSP", "SPY"), "IWM/SPY": ("IWM", "SPY")}
 
 COLORES = {"SPY": "#3b82f6", "QQQ": "#8957e5", "IWM": "#e0823d", "RSP": "#57ab5a",

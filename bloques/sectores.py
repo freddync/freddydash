@@ -5,12 +5,8 @@ import streamlit as st
 
 from bloques import relativo, volatilidad
 from bloques.comun import avisar_faltantes, cierres, clave_cliqueada, layout, recortar
+from bloques.series import SECTORES
 
-SECTORES = {
-    "XLK": "Tecnología", "XLF": "Financiero", "XLV": "Salud", "XLY": "Consumo discrecional",
-    "XLP": "Consumo básico", "XLE": "Energía", "XLI": "Industrial", "XLB": "Materiales",
-    "XLU": "Servicios básicos", "XLRE": "Inmobiliario", "XLC": "Comunicaciones",
-}
 CICLICOS = ["XLK", "XLY", "XLF", "XLI", "XLB", "XLE", "XLC"]
 DEFENSIVOS = ["XLP", "XLV", "XLU", "XLRE"]
 

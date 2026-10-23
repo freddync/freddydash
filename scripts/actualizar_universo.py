@@ -4,6 +4,8 @@ El screener de NASDAQ (CSV exportados desde nasdaq.com/market-activity/stocks/sc
 define qué empresas entran: de EE.UU. y con capitalización sobre el mínimo. Yahoo define
 su sector e industria, porque sus 11 sectores calzan con los ETFs SPDR de Sectores.
 
+Se corre a mano y necesita yfinance (pip install yfinance), que el dashboard no usa.
+
 Uso:  python scripts/actualizar_universo.py [carpeta_screener] [capitalizacion_minima_usd]
       (por defecto ../Screener y 10e9)
 """

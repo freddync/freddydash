@@ -5,8 +5,8 @@ import plotly.graph_objects as go
 import streamlit as st
 
 from bloques.comun import avisar_faltantes, cierres, explicacion, layout, recortar
+from bloques.series import VOLATILIDAD as TICKERS
 
-TICKERS = {"^VIX": "VIX", "^VIX3M": "VIX3M", "^MOVE": "MOVE"}
 
 # Zonas de referencia (aproximadas, por convención de mercado): (desde, hasta, nombre, color)
 ZONAS = {

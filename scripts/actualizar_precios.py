@@ -3,61 +3,55 @@
   historia  ~7 años → datos/precios/historia.parquet (una vez al mes)
   reciente  3 meses → datos/precios/reciente.csv     (varias veces al día)
 
-Yahoo limita los pedidos masivos, así que se baja en tandas con pausas y se reintenta lo que falla.
-Si un ticker no se logra bajar, se conserva lo que ya había en el archivo.
+Un pedido por ticker a la API de gráficos de Yahoo, en paralelo (fuentes/yahoo.py); lo que falla se
+reintenta después de una pausa. Si un ticker no se logra bajar, se conserva lo que ya había en el archivo.
 
 Uso:  python scripts/actualizar_precios.py [historia|reciente]
 """
 import sys
 import time
-import warnings
 from pathlib import Path
 
 import pandas as pd
 
 RAIZ = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(RAIZ))
-from bloques import sectores, tendencia, volatilidad  # noqa: E402
+from bloques.series import MERCADO  # noqa: E402
 from fuentes import almacen, yahoo  # noqa: E402
 
 UNIVERSO = RAIZ / "datos" / "universo.csv"
-MERCADO = list(dict.fromkeys([*sectores.SECTORES, "SPY", *tendencia.ETFS, *volatilidad.TICKERS]))
-# historia: 5 años de gráfico más ~1.5 años para calentar la rotación (5 + 300 + 75 días).
-# reciente: tiene que alcanzar a solaparse con la historia, que se rehace cada mes.
-PERIODOS = {"historia": "7y", "reciente": "3mo"}
-TANDA, PAUSA, INTENTOS = 80, 8, 4
+# historia: 5 años de gráfico más ~1.5 años para calentar la rotación (5 + 300 + 75 días); Yahoo no tiene
+# un rango de 7 años, así que se pide 10 y se recorta. reciente: tiene que solaparse con la historia,
+# que se rehace cada mes.
+RANGOS = {"historia": "10y", "reciente": "3mo"}
+ANIOS_HISTORIA = 7
+REINTENTOS, ESPERA = 2, 30
 
 
-def bajar(tickers, periodo):
+def bajar(tickers, rango):
     """({ticker: serie}, [tickers que no se lograron bajar])."""
-    precios, pendientes = {}, tickers
-    for intento in range(1, INTENTOS + 1):
-        fallidos = []
-        for i in range(0, len(pendientes), TANDA):
-            tanda = pendientes[i:i + TANDA]
-            with warnings.catch_warnings():
-                warnings.simplefilter("ignore")
-                ok, mal = yahoo.cierres(tanda, periodo=periodo, respaldo=False)
-            precios.update(ok)
-            fallidos += mal
-            print(f"  intento {intento}, tanda {i // TANDA + 1}: {len(ok)} ok, {len(mal)} fallaron", flush=True)
-            time.sleep(PAUSA)
-        pendientes = fallidos
+    t0 = time.time()
+    precios, pendientes = yahoo.cierres(tickers, rango)
+    print(f"  {len(precios)} ok, {len(pendientes)} fallaron ({time.time() - t0:.0f} s)", flush=True)
+    for intento in range(1, REINTENTOS + 1):
         if not pendientes:
             break
-        print(f"Quedan {len(pendientes)}; espero {PAUSA * 4 * intento} s antes de reintentar", flush=True)
-        time.sleep(PAUSA * 4 * intento)
+        time.sleep(ESPERA * intento)
+        ok, pendientes = yahoo.cierres(pendientes, rango, hilos=2)
+        precios.update(ok)
+        print(f"  reintento {intento}: {len(ok)} ok, {len(pendientes)} siguen fallando", flush=True)
     return precios, pendientes
 
 
 def main():
     modo = sys.argv[1] if len(sys.argv) > 1 else "reciente"
-    if modo not in PERIODOS:
+    if modo not in RANGOS:
         sys.exit(f"Modo desconocido: {modo}. Usa historia o reciente.")
     tickers = list(pd.read_csv(UNIVERSO)["ticker"]) + MERCADO
-    precios, pendientes = bajar(tickers, PERIODOS[modo])
+    precios, pendientes = bajar(tickers, RANGOS[modo])
     df = pd.DataFrame(precios).sort_index()
-    df.index = pd.to_datetime(df.index).tz_localize(None).normalize()
+    if modo == "historia":
+        df = df[df.index >= df.index[-1] - pd.DateOffset(years=ANIOS_HISTORIA)]
 
     anterior = almacen.precios() if modo == "historia" else almacen.leer_reciente()
     conservar = [t for t in pendientes if t in anterior]

@@ -9,14 +9,14 @@ from pathlib import Path
 
 RAIZ = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(RAIZ))
-from bloques import tasas  # noqa: E402
+from bloques.series import FRED  # noqa: E402
 from fuentes import almacen, fred  # noqa: E402
 
 DESDE = "2000-01-01"
 
 
 def main():
-    s, errores = fred.series(tasas.IDS)
+    s, errores = fred.series(FRED)
     anterior, _ = almacen.fred(errores)
     s.update(anterior)
     if not s:
