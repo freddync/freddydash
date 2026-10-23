@@ -62,6 +62,7 @@ def main():
         sys.exit(f"Solo llegaron {len(precios)} de {len(tickers)} tickers: no se guarda nada.")
 
     (almacen.guardar_historia if modo == "historia" else almacen.guardar_reciente)(df)
+    almacen.guardar_sello("precios")
     print(f"Guardado {modo}: {df.shape[1]} tickers, {len(df)} sesiones, {df.index[0]:%Y-%m-%d} a "
           f"{df.index[-1]:%Y-%m-%d}. Sin datos: {', '.join(pendientes) or 'ninguno'}")
 

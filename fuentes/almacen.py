@@ -3,10 +3,12 @@
   datos/precios/historia.parquet  cierres ajustados de ~7 años: empresas, ETFs e índices (se rehace una vez al mes)
   datos/precios/reciente.csv      los últimos 3 meses de los mismos tickers (se rehace varias veces al día)
   datos/fred.csv                  series de FRED (tasas e inflación)
+  datos/actualizacion.json        fecha y hora (Nueva York) de la última descarga de cada cosa
 
 Yahoo reajusta hacia atrás toda la historia de una acción cuando paga un dividendo o se divide. Por eso, al unir
 los dos archivos, la historia de cada ticker se multiplica por el factor entre ambos en su primer día en común.
 """
+import json
 from pathlib import Path
 
 import pandas as pd
@@ -15,6 +17,8 @@ DATOS = Path(__file__).resolve().parent.parent / "datos"
 HISTORIA = DATOS / "precios" / "historia.parquet"
 RECIENTE = DATOS / "precios" / "reciente.csv"
 FRED = DATOS / "fred.csv"
+SELLO = DATOS / "actualizacion.json"
+ZONA = "America/New_York"
 
 
 def version(*archivos):
@@ -80,3 +84,17 @@ def guardar_reciente(df):
 
 def guardar_fred(series):
     pd.DataFrame(series).sort_index().rename_axis("fecha").to_csv(FRED, float_format="%.6g", date_format="%Y-%m-%d")
+
+
+def leer_sello():
+    """{"precios": "2026-10-23 13:55", ...}: hora de Nueva York de la última descarga de cada cosa."""
+    try:
+        return json.loads(SELLO.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return {}
+
+
+def guardar_sello(clave):
+    sello = leer_sello()
+    sello[clave] = pd.Timestamp.now(tz=ZONA).strftime("%Y-%m-%d %H:%M")
+    SELLO.write_text(json.dumps(sello, indent=2, sort_keys=True) + "\n", encoding="utf-8")

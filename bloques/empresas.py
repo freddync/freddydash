@@ -17,6 +17,9 @@ COLUMNAS = ["Ticker", "Nombre", "Sector", "Industria", "RSI 5", "MACD 6/13/5", "
 ORDEN_MACD = ["Pre-cruce", "Alza", "Perdiendo fuerza", "Baja", "Mixta"]  # al ordenar por MACD
 MESES_DETALLE = 6  # meses que muestra la ventana de detalle
 MACD_RAPIDA, MACD_LENTA, MACD_SENAL = 6, 13, 5
+# Medias sobre el precio en la ventana de detalle: (nombre, tipo, días, color)
+MEDIAS = [("SMA 200", "sma", 200, "#f0f6fc"), ("SMA 100", "sma", 100, "#e3b341"),
+          ("EMA 21", "ema", 21, "#58a6ff"), ("EMA 5", "ema", 5, "#bc8cff")]
 
 
 def macd(precios, rapida=MACD_RAPIDA, lenta=MACD_LENTA, senal=MACD_SENAL):
@@ -76,31 +79,43 @@ def historial(ticker):
 
 
 def grafico_detalle(h, ticker):
-    """Precio (velas), volumen, RSI 5 y MACD 6/13/5 de los últimos MESES_DETALLE meses."""
+    """Precio (velas con medias SMA 200/100 y EMA 21/5), volumen, RSI 5 y MACD 6/13/5 de los últimos
+    MESES_DETALLE meses. Todo se calcula con la historia completa y después se recorta."""
     cierre = h[["Close"]].rename(columns={"Close": ticker})
     r = rsi(cierre)[ticker]
     linea, senal, hist = (x[ticker] for x in macd(cierre))
+    medias = {nombre: (h["Close"].rolling(n).mean() if tipo == "sma" else h["Close"].ewm(span=n, adjust=False).mean())
+              for nombre, tipo, n, _ in MEDIAS}
     desde = h.index[-1] - pd.DateOffset(months=MESES_DETALLE)
     h, r, linea, senal, hist = (x[x.index >= desde] for x in (h, r, linea, senal, hist))
+    medias = {k: v[v.index >= desde] for k, v in medias.items()}
     sube = h["Close"] >= h["Open"]
 
     fig = make_subplots(rows=4, cols=1, shared_xaxes=True, vertical_spacing=0.03,
                         row_heights=[0.46, 0.14, 0.2, 0.2],
                         subplot_titles=("Precio", "Volumen", "RSI 5", "MACD 6/13/5"))
     fig.add_candlestick(x=h.index, open=h["Open"], high=h["High"], low=h["Low"], close=h["Close"], name="Precio",
-                        increasing_line_color="#3fb950", decreasing_line_color="#f85149", row=1, col=1)
-    fig.add_bar(x=h.index, y=h["Volume"], name="Volumen", row=2, col=1,
+                        increasing_line_color="#3fb950", decreasing_line_color="#f85149", row=1, col=1,
+                        showlegend=False)
+    for nombre, _, _, color in MEDIAS:
+        m = medias[nombre]
+        fig.add_scatter(x=m.index, y=m, name=nombre, line=dict(color=color, width=1.3), row=1, col=1)
+    fig.add_bar(x=h.index, y=h["Volume"], name="Volumen", row=2, col=1, showlegend=False,
                 marker_color=["#3fb950" if s else "#f85149" for s in sube], opacity=0.7)
-    fig.add_scatter(x=r.index, y=r, name="RSI 5", line=dict(color="#d0d7de", width=1.5), row=3, col=1)
+    fig.add_scatter(x=r.index, y=r, name="RSI 5", line=dict(color="#d0d7de", width=1.5), row=3, col=1,
+                    showlegend=False)
     for nivel, color in ((70, "#f85149"), (30, "#3fb950")):
         fig.add_hline(y=nivel, line=dict(color=color, width=1, dash="dot"), row=3, col=1)
-    fig.add_bar(x=hist.index, y=hist, name="Histograma", row=4, col=1,
+    fig.add_bar(x=hist.index, y=hist, name="Histograma", row=4, col=1, showlegend=False,
                 marker_color=["#3fb950" if v >= 0 else "#f85149" for v in hist], opacity=0.6)
-    fig.add_scatter(x=linea.index, y=linea, name="MACD", line=dict(color="#d0d7de", width=1.5), row=4, col=1)
-    fig.add_scatter(x=senal.index, y=senal, name="Señal", line=dict(color="#e0823d", width=1.3), row=4, col=1)
+    fig.add_scatter(x=linea.index, y=linea, name="MACD", line=dict(color="#d0d7de", width=1.5), row=4, col=1,
+                    showlegend=False)
+    fig.add_scatter(x=senal.index, y=senal, name="Señal", line=dict(color="#e0823d", width=1.3), row=4, col=1,
+                    showlegend=False)
     fig.update_yaxes(range=[0, 100], row=3, col=1)
     fig.update_xaxes(rangebreaks=[dict(bounds=["sat", "mon"])], rangeslider_visible=False)
-    fig.update_layout(height=820, margin=dict(l=10, r=10, t=40, b=10), showlegend=False, hovermode="x unified")
+    fig.update_layout(height=840, margin=dict(l=10, r=10, t=60, b=10), hovermode="x unified",
+                      legend=dict(orientation="h", yanchor="bottom", y=1.03, xanchor="left", x=0))
     return fig
 
 

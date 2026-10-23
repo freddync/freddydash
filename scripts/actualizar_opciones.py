@@ -14,7 +14,7 @@ import pandas as pd
 
 RAIZ = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(RAIZ))
-from fuentes import cboe  # noqa: E402
+from fuentes import almacen, cboe  # noqa: E402
 
 UNIVERSO = RAIZ / "datos" / "universo.csv"
 SALIDA = RAIZ / "datos" / "put_call.csv"
@@ -34,6 +34,7 @@ def main():
     df["put_call_vol"] = (df["put_vol"] / df["call_vol"].where(df["call_vol"] > 0)).round(3)
     df["fecha"] = pd.Timestamp.now(tz=ZONA).strftime("%Y-%m-%d %H:%M NY")
     df.to_csv(SALIDA)
+    almacen.guardar_sello("put_call")
     print(f"Guardado {SALIDA.relative_to(RAIZ)}: {len(df)} empresas en {time.time() - t0:.0f} s. "
           f"Sin opciones o sin respuesta: {len(sin_datos)}" + (f" ({', '.join(sin_datos[:15])})" if sin_datos else ""))
 
