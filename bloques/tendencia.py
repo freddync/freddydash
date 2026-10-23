@@ -27,11 +27,11 @@ def cruces(s):
     return arriba[cambio]
 
 
-def grafico_detalle(serie, nombre, periodo, fin):
+def grafico_detalle(serie, nombre, periodo, fin, color=None):
     sma50, sma200 = serie.rolling(50).mean(), serie.rolling(200).mean()
     fig = go.Figure()
     x = recortar(serie, periodo, fin)
-    fig.add_scatter(x=x.index, y=x, name=nombre, line=dict(color=COLORES[nombre], width=1.8))
+    fig.add_scatter(x=x.index, y=x, name=nombre, line=dict(color=color or COLORES[nombre], width=1.8))
     for sma, etiqueta in ((sma50, "SMA50"), (sma200, "SMA200")):
         m = recortar(sma, periodo, fin)
         fig.add_scatter(x=m.index, y=m, name=etiqueta.replace("SMA", "SMA "),

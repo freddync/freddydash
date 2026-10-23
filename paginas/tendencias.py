@@ -1,13 +1,13 @@
-"""Top · el escenario macro, en una sola página."""
+"""Macro · Tendencias: hacia dónde va el mercado y cuánto miedo hay."""
 import streamlit as st
 
-from bloques import tasas, tendencia, volatilidad
+from bloques import tendencia, volatilidad
 from bloques.comun import PERIODOS
 
-st.title("Macro")
-st.caption("¿Cuál es el escenario? Tendencia del mercado, volatilidad y tasas e inflación.")
+st.title("Tendencias")
+st.caption("¿Hacia dónde va el mercado y cuánto miedo hay? Tendencia del mercado y volatilidad.")
 
-periodo = st.segmented_control("Período", list(PERIODOS), default="1A", key="periodo_macro") or "1A"
+periodo = st.segmented_control("Período", list(PERIODOS), default="1A", key="periodo_tendencias") or "1A"
 
 st.header("Tendencia")
 st.markdown("¿El mercado está en alza o en baja, y el alza es pareja o depende de unas pocas empresas? Se mira "
@@ -20,8 +20,3 @@ st.markdown("¿Cuánto miedo hay en el mercado? Los índices de volatilidad mide
             "inversionistas, a partir de lo que pagan por protegerse con opciones. Las zonas de color de fondo "
             "son referencias aproximadas: verde es calma, naranjo es tensión y rojo es pánico.")
 volatilidad.mostrar(periodo)
-
-st.header("Tasas e inflación")
-st.markdown("Las tasas son el precio del dinero y el punto de partida para valorar cualquier activo: ¿la Fed "
-            "está frenando o estimulando la economía?")
-tasas.mostrar(periodo)
