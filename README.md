@@ -27,15 +27,17 @@ Put/Call no hace nada si ya se bajó ese día.
 **Token.** En GitHub → Settings → Developer settings → Fine-grained tokens → Generate new token:
 - Repository access: *Only select repositories* → `freddync/freddydash`
 - Permissions → Repository → **Actions: Read and write**
-- Al vencer, crear otro y reemplazarlo en los tres trabajos de cron-job.org.
+- Al vencer, crear otro y reemplazarlo en los trabajos de cron-job.org.
 
-**Trabajos.** En los tres, zona horaria **America/New_York** (así el cambio de horario se ajusta solo):
+**Trabajos.** Se clonaron de los del dashboard anterior (mismo token). En todos, zona horaria **America/New_York** (así el cambio de horario se ajusta solo):
 
 | Trabajo | Horario (NY) | URL |
 |---|---|---|
-| Fdash precios | lun-vie, 9:45 a 15:45 cada hora, y 16:30 | `.../workflows/actualizar-precios.yml/dispatches` |
-| Fdash opciones | lun-vie, 8:40 | `.../workflows/actualizar-opciones.yml/dispatches` |
-| Fdash historia | día 1 de cada mes, 2:00 | `.../workflows/actualizar-historia.yml/dispatches` |
+| Fdash precios 9:31 | lun-vie, 9:31 | `.../workflows/actualizar-precios.yml/dispatches` |
+| Fdash precios horario | lun-vie, 10:00 a 16:00 cada hora | `.../workflows/actualizar-precios.yml/dispatches` |
+| Fdash precios 16:30 (respaldo cierre) | lun-vie, 16:30 | `.../workflows/actualizar-precios.yml/dispatches` |
+| Fdash opciones 8:40 | lun-vie, 8:40 | `.../workflows/actualizar-opciones.yml/dispatches` |
+| Fdash historia (día 1) | día 1 de cada mes, 2:00 | `.../workflows/actualizar-historia.yml/dispatches` |
 
 donde `...` es `https://api.github.com/repos/freddync/freddydash/actions`. En la pestaña *Advanced* de cada trabajo:
 
