@@ -15,7 +15,7 @@ from fuentes import almacen, yahoo
 
 COLUMNAS = ["Ticker", "Nombre", "Sector", "Industria", "RSI 5", "MACD 6/13/5", "Put/Call"]
 ORDEN_MACD = ["Pre-cruce", "Alza", "Perdiendo fuerza", "Baja", "Mixta"]  # al ordenar por MACD
-MESES_DETALLE = 6  # meses que muestra la ventana de detalle
+MESES_DETALLE = 12  # meses que muestra la ventana de detalle (con 2 años bajados, la SMA 200 queda completa)
 MACD_RAPIDA, MACD_LENTA, MACD_SENAL = 6, 13, 5
 # Medias sobre el precio en la ventana de detalle: (nombre, tipo, días, color)
 MEDIAS = [("SMA 200", "sma", 200, "#f0f6fc"), ("SMA 100", "sma", 100, "#e3b341"),
