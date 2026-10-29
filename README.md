@@ -33,11 +33,11 @@ Put/Call no hace nada si ya se bajó ese día.
 
 | Trabajo | Horario (NY) | URL |
 |---|---|---|
-| Fdash precios 9:31 | lun-vie, 9:31 | `.../workflows/actualizar-precios.yml/dispatches` |
-| Fdash precios horario | lun-vie, 10:00 a 16:00 cada hora | `.../workflows/actualizar-precios.yml/dispatches` |
-| Fdash precios 16:30 (respaldo cierre) | lun-vie, 16:30 | `.../workflows/actualizar-precios.yml/dispatches` |
-| Fdash opciones 8:40 | lun-vie, 8:40 | `.../workflows/actualizar-opciones.yml/dispatches` |
-| Fdash historia (día 1) | día 1 de cada mes, 2:00 | `.../workflows/actualizar-historia.yml/dispatches` |
+| FreddyDash precios 9:31 | lun-vie, 9:31 | `.../workflows/actualizar-precios.yml/dispatches` |
+| FreddyDash precios horario | lun-vie, 10:00 a 16:00 cada hora | `.../workflows/actualizar-precios.yml/dispatches` |
+| FreddyDash precios 16:30 (respaldo cierre) | lun-vie, 16:30 | `.../workflows/actualizar-precios.yml/dispatches` |
+| FreddyDash opciones 8:40 | lun-vie, 8:40 | `.../workflows/actualizar-opciones.yml/dispatches` |
+| FreddyDash historia (día 1) | día 1 de cada mes, 2:00 | `.../workflows/actualizar-historia.yml/dispatches` |
 
 donde `...` es `https://api.github.com/repos/freddync/freddydash/actions`. En la pestaña *Advanced* de cada trabajo:
 
