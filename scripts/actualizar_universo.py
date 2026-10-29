@@ -1,4 +1,4 @@
-"""Arma el universo de empresas de Fdash: datos/universo.csv.
+"""Arma el universo de empresas de FreddyDash: datos/universo.csv.
 
 El screener de NASDAQ (CSV exportados desde nasdaq.com/market-activity/stocks/screener)
 define qué empresas entran: de EE.UU. y con capitalización sobre el mínimo. Yahoo define

@@ -56,6 +56,11 @@ def industrias_de(etf):
     return {ind: list(g["ticker"]) for ind, g in grupos if len(g) >= MIN_EMPRESAS}
 
 
+def todas():
+    """{industria: (etf, [tickers])} de todos los sectores, sólo las que tienen al menos MIN_EMPRESAS empresas."""
+    return {ind: (etf, tickers) for etf in sectores.SECTORES for ind, tickers in industrias_de(etf).items()}
+
+
 def indices(miembros):
     _, precios = empresas()
     return {ind: relativo.canasta({t: precios[t].dropna() for t in tickers}) for ind, tickers in miembros.items()}

@@ -1,6 +1,6 @@
-# Fdash
+# FreddyDash
 
-Dashboard de inversión en tres partes: **Top** (Sectores → Industrias), **Down** (Empresas) y **Macro** (Tendencias y Economía).
+Dashboard de inversión en tres partes: **Top** (Sectores, Industrias, Rotación Sectores y Rotación Industrias), **Down** (Empresas) y **Macro** (Tendencias y Economía).
 Publicado en https://freddydash.streamlit.app.
 
 ## Datos
