@@ -73,9 +73,14 @@ def tabla(version):
     return df.rename_axis("Ticker").reset_index(), precios.index[-1], put_call.get("fecha", pd.Series()).max()
 
 
-@st.cache_data(ttl=3600, show_spinner="Bajando la historia de la empresa…")
-def historial(ticker):
+@st.cache_data(ttl=900, show_spinner="Bajando la historia de la empresa…")
+def _historial(ticker, version):
+    """version: fechas de los archivos de precios; si llegan precios nuevos, se vuelve a bajar."""
     return yahoo.historial(ticker)
+
+
+def historial(ticker):
+    return _historial(ticker, almacen.version())
 
 
 def grafico_detalle(h, ticker):
