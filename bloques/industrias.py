@@ -21,7 +21,7 @@ REF = "SPY"  # las industrias siempre se comparan contra el S&P 500
 AMPLITUD_MIN = 50  # % de empresas sobre su media de 50 días para pasar a Empresas
 
 
-@st.cache_data(show_spinner="Cargando empresas…")
+@st.cache_data(max_entries=1, show_spinner="Cargando empresas…")
 def cargar_empresas(version):
     """version: fechas de modificación de los archivos, para recargar cuando se actualizan."""
     universo = pd.read_csv(DATOS / "universo.csv")
@@ -37,7 +37,7 @@ def empresas():
     return cargar_empresas(version())
 
 
-@st.cache_data(show_spinner="Calculando RSI de las empresas…")
+@st.cache_data(max_entries=1, show_spinner="Calculando RSI de las empresas…")
 def _rsi_empresas(version):
     _, precios = cargar_empresas(version)
     return rsi(precios.ffill())

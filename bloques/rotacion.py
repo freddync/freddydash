@@ -98,7 +98,8 @@ def seleccion(precios, claves, ref, cupos, buffers, incluir_ultimo=False):
     return sum(pesos) / len(pesos)
 
 
-@st.cache_data(show_spinner="Calculando la rotación por velocidad…")
+# Se llama desde dos páginas (sectores e industrias): basta con sus versiones actuales
+@st.cache_data(max_entries=4, show_spinner="Calculando la rotación por velocidad…")
 def calcular(precios, ref, cupos, buffers):
     """precios: fechas × (claves + ref). Devuelve {"vigente": pesos al último cierre de mes, "provisional": si el
     mes cerrara hoy, "velocidad": velocidad relativa anualizada (promedio SMA 200 y 250), "historia": pesos de

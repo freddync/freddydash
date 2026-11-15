@@ -31,7 +31,9 @@ def explicacion(texto):
     st.markdown(f"**Cómo leerlo.** {texto}")
 
 
-@st.cache_data(show_spinner="Cargando precios…")
+# Una sola entrada: cada actualización de precios crea una versión nueva y sin límite se acumulaban copias
+# viejas (~10 MB cada una) hasta pasar el límite de memoria de Streamlit Cloud.
+@st.cache_data(max_entries=1, show_spinner="Cargando precios…")
 def _precios(version):
     """version: fechas de modificación de los archivos de precios, para recargar cuando se actualizan."""
     return almacen.precios()

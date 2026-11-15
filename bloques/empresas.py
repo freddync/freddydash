@@ -51,7 +51,7 @@ def categoria_macd(linea, senal):
     return cat
 
 
-@st.cache_data(show_spinner="Calculando indicadores…")
+@st.cache_data(max_entries=1, show_spinner="Calculando indicadores…")
 def tabla(version):
     """version: fechas de modificación de los archivos de datos, para recalcular cuando se actualizan."""
     universo, precios = industrias.empresas()
@@ -73,7 +73,7 @@ def tabla(version):
     return df.rename_axis("Ticker").reset_index(), precios.index[-1], put_call.get("fecha", pd.Series()).max()
 
 
-@st.cache_data(ttl=900, show_spinner="Bajando la historia de la empresa…")
+@st.cache_data(ttl=900, max_entries=50, show_spinner="Bajando la historia de la empresa…")
 def _historial(ticker, version):
     """version: fechas de los archivos de precios; si llegan precios nuevos, se vuelve a bajar."""
     return yahoo.historial(ticker)
@@ -124,7 +124,7 @@ def grafico_detalle(h, ticker):
     return fig
 
 
-@st.cache_data(ttl=1800, show_spinner="Buscando noticias…")
+@st.cache_data(ttl=1800, max_entries=50, show_spinner="Buscando noticias…")
 def noticias(ticker):
     try:
         return yahoo.noticias(ticker), None
