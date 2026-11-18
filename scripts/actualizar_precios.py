@@ -16,7 +16,7 @@ import pandas as pd
 
 RAIZ = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(RAIZ))
-from bloques.series import MERCADO  # noqa: E402
+from bloques.series import MEGACAPS, MERCADO  # noqa: E402
 from fuentes import almacen, yahoo  # noqa: E402
 
 UNIVERSO = RAIZ / "datos" / "universo.csv"
@@ -47,7 +47,7 @@ def main():
     modo = sys.argv[1] if len(sys.argv) > 1 else "reciente"
     if modo not in RANGOS:
         sys.exit(f"Modo desconocido: {modo}. Usa historia o reciente.")
-    tickers = list(pd.read_csv(UNIVERSO)["ticker"]) + MERCADO
+    tickers = list(dict.fromkeys([*pd.read_csv(UNIVERSO)["ticker"], *MERCADO, *MEGACAPS]))
     precios, pendientes = bajar(tickers, RANGOS[modo])
     df = pd.DataFrame(precios).sort_index()
     if modo == "historia":

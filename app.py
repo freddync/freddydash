@@ -16,7 +16,8 @@ import streamlit as st
 # primero los que no dependen de otros, para que nadie quede usando funciones viejas.
 ORDEN = ["fuentes.yahoo", "fuentes.fred", "fuentes.cboe", "fuentes.almacen", "bloques.series", "bloques.indicadores",
          "bloques.comun", "bloques.relativo", "bloques.rotacion", "bloques.volatilidad", "bloques.tendencia", "bloques.tasas",
-         "bloques.commodities", "bloques.sectores", "bloques.industrias", "bloques.empresas"]
+         "bloques.commodities", "bloques.sectores", "bloques.industrias", "bloques.empresas",
+         "bloques.senales"]
 
 
 def _recargar_si_cambiaron():
@@ -44,6 +45,7 @@ pagina = st.navigation({
     ],
     "Down": [
         st.Page("paginas/empresas.py", title="Empresas", icon=":material/apartment:"),
+        st.Page("paginas/senales.py", title="Señales", icon=":material/notifications_active:"),
     ],
     "Macro": [
         st.Page("paginas/tendencias.py", title="Tendencias", icon=":material/trending_up:"),

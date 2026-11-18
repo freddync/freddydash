@@ -19,3 +19,25 @@ FRED = ["DFEDTAR", "DFEDTARU", "CPIAUCSL", *PLAZOS.values()]
 
 # Todo lo de mercado que se guarda junto a los precios de las empresas
 MERCADO = list(dict.fromkeys([*SECTORES, "SPY", *ETFS, *VOLATILIDAD, *COMMODITIES]))
+
+# Down · Señales: las 74 megacaps donde se validó la estrategia swing (lista de MegaCap, sin duplicados ni
+# tickers que no cotizan). El orden es la prioridad cuando hay más señales que cupos (mayor capitalización primero).
+# Varias no están en datos/universo.csv (ADRs extranjeras, etc.): se bajan igual junto a los precios.
+MEGACAPS = {
+    "NVDA": "NVIDIA", "AAPL": "Apple", "GOOGL": "Alphabet", "MSFT": "Microsoft", "AMZN": "Amazon",
+    "TSM": "Taiwan Semiconductor", "AVGO": "Broadcom", "META": "Meta Platforms", "TSLA": "Tesla",
+    "BRK-B": "Berkshire Hathaway", "LLY": "Eli Lilly", "MU": "Micron", "JPM": "JPMorgan Chase", "WMT": "Walmart",
+    "AMD": "Advanced Micro Devices", "ASML": "ASML Holding", "XOM": "ExxonMobil", "V": "Visa",
+    "JNJ": "Johnson & Johnson", "INTC": "Intel", "MA": "Mastercard", "BAC": "Bank of America", "ABBV": "AbbVie",
+    "CSCO": "Cisco", "ORCL": "Oracle", "COST": "Costco", "PLTR": "Palantir", "LRCX": "Lam Research",
+    "AMAT": "Applied Materials", "CVX": "Chevron", "CAT": "Caterpillar", "GE": "GE Aerospace", "KO": "Coca-Cola",
+    "UNH": "UnitedHealth", "HSBC": "HSBC Holdings", "MS": "Morgan Stanley", "HD": "Home Depot",
+    "PG": "Procter & Gamble", "MRK": "Merck", "NFLX": "Netflix", "DELL": "Dell Technologies",
+    "PANW": "Palo Alto Networks", "GS": "Goldman Sachs", "TM": "Toyota", "RY": "Royal Bank of Canada",
+    "RTX": "RTX Corp", "ARM": "Arm Holdings", "PM": "Philip Morris", "BABA": "Alibaba", "NVS": "Novartis",
+    "GEV": "GE Vernova", "MUFG": "Mitsubishi UFJ", "WFC": "Wells Fargo", "KLAC": "KLA Corp", "SHEL": "Shell",
+    "SAP": "SAP SE", "TXN": "Texas Instruments", "ANET": "Arista Networks", "SNDK": "Sandisk",
+    "AZN": "AstraZeneca", "C": "Citigroup", "AXP": "American Express", "AMGN": "Amgen", "LIN": "Linde",
+    "CRWD": "CrowdStrike", "IBM": "IBM", "STX": "Seagate", "BHP": "BHP Group", "TMO": "Thermo Fisher",
+    "SAN": "Banco Santander", "APH": "Amphenol", "TD": "Toronto-Dominion", "NVO": "Novo Nordisk", "VZ": "Verizon",
+}
