@@ -156,8 +156,30 @@ def mostrar_noticias(ticker):
             st.caption("Fuente: Yahoo Finance (se actualiza cada 30 minutos).")
 
 
+def abrir_empresa(tickers, i, obtener):
+    """Abre la ventana en la empresa i de la lista; con ◀ ▶ (o las flechas del teclado) se pasa a la
+    anterior o a la siguiente. obtener(ticker) devuelve la fila de la empresa (Ticker, Nombre, Sector,
+    Industria, RSI 5, MACD 6/13/5, Put/Call)."""
+    st.session_state["empresa_idx"] = i
+    ver_empresa(list(tickers), obtener)
+
+
+def _mover(paso, n):
+    st.session_state["empresa_idx"] = (st.session_state.get("empresa_idx", 0) + paso) % n
+
+
 @st.dialog("Empresa", width="large")
-def ver_empresa(fila):
+def ver_empresa(tickers, obtener):
+    n = len(tickers)
+    i = st.session_state.get("empresa_idx", 0) % n
+    if n > 1:
+        c1, c2, c3 = st.columns([1, 1.2, 1], vertical_alignment="center")
+        c1.button("Anterior", icon=":material/chevron_left:", shortcut="Left", on_click=_mover, args=(-1, n),
+                  width="stretch", key="empresa_anterior")
+        c2.markdown(f"<div style='text-align:center;color:#8b93a3'>{i + 1} de {n}</div>", unsafe_allow_html=True)
+        c3.button("Siguiente", icon=":material/chevron_right:", shortcut="Right", on_click=_mover, args=(1, n),
+                  width="stretch", key="empresa_siguiente")
+    fila = obtener(tickers[i])
     st.subheader(f"{fila['Nombre']} ({fila['Ticker']})")
     st.caption(f"{fila['Sector']} · {fila['Industria']}")
     h = historial(fila["Ticker"])
@@ -224,4 +246,5 @@ def mostrar():
     if elegida != st.session_state.get("empresa_vista"):
         st.session_state["empresa_vista"] = elegida
         if elegida:
-            ver_empresa(vista.iloc[filas[0]])
+            por_ticker = vista.set_index("Ticker", drop=False)
+            abrir_empresa(vista["Ticker"], filas[0], lambda t: por_ticker.loc[t])

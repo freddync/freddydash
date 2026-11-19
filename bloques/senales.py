@@ -227,7 +227,7 @@ def _tabla_clicable(df, clave, column_config):
     if elegida != st.session_state.get(f"vista_{clave}"):      # abrir solo cuando se elige una fila nueva
         st.session_state[f"vista_{clave}"] = elegida
         if elegida:
-            empresas.ver_empresa(_fila_empresa(elegida[1]))
+            empresas.abrir_empresa(df["Ticker"], filas[0], _fila_empresa)
 
 
 def _formato():
@@ -285,7 +285,7 @@ def _grafico(r):
     c1, c2 = st.columns([4, 1], vertical_alignment="bottom")
     t = c1.selectbox("Empresa", sugeridos, format_func=lambda x: f"{x} · {_nombre(x)}", key="senales_ticker")
     if c2.button("Ver datos de la empresa", icon=":material/open_in_new:", width="stretch"):
-        empresas.ver_empresa(_fila_empresa(t))
+        empresas.abrir_empresa(sugeridos, sugeridos.index(t), _fila_empresa)
     s = comun.recortar(c[t].dropna(), "1A", fecha)
     fig = go.Figure()
     fig.add_scatter(x=s.index, y=s, name="Cierre", line=dict(color="#d0d7de", width=1.6))

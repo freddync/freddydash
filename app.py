@@ -4,6 +4,7 @@ Top: el mercado desde arriba (sectores → industrias) y su rotación por veloci
 Down: el análisis de cada empresa.
 Macro: el escenario (tendencias del mercado y economía).
 """
+import hmac
 import importlib
 import sys
 from pathlib import Path
@@ -36,6 +37,33 @@ from fuentes import almacen  # noqa: E402
 
 st.set_page_config(page_title="FreddyDash", page_icon="📊", layout="wide")
 
+
+def _pedir_clave():
+    """Clave de acceso: se guarda en los secretos de Streamlit (`clave = "..."` en .streamlit/secrets.toml en
+    local, o en Settings → Secrets de Streamlit Cloud), nunca en el código. Sin clave configurada no se
+    muestra nada. Una vez ingresada, vale mientras la pestaña siga abierta."""
+    if st.session_state.get("autenticado"):
+        return
+    try:
+        clave = st.secrets.get("clave")
+    except FileNotFoundError:
+        clave = None
+    st.title("FreddyDash")
+    if not clave:
+        st.error("Falta configurar la clave del dashboard (secreto `clave`).")
+        st.stop()
+    with st.form("acceso"):
+        escrita = st.text_input("Clave", type="password")
+        if st.form_submit_button("Entrar"):
+            if hmac.compare_digest(escrita.encode(), str(clave).encode()):
+                st.session_state["autenticado"] = True
+                st.rerun()
+            st.error("Clave incorrecta.")
+    st.stop()
+
+
+# La navegación se arma antes de pedir la clave (oculta mientras no se entra) para que, al entrar, se abra la
+# página que estaba en la dirección y no la primera.
 pagina = st.navigation({
     "Top": [
         st.Page("paginas/sectores.py", title="Sectores", icon=":material/donut_small:"),
@@ -51,7 +79,8 @@ pagina = st.navigation({
         st.Page("paginas/tendencias.py", title="Tendencias", icon=":material/trending_up:"),
         st.Page("paginas/economia.py", title="Economía", icon=":material/public:"),
     ],
-})
+}, position="sidebar" if st.session_state.get("autenticado") else "hidden")
+_pedir_clave()
 # Cuándo se bajaron los datos por última vez (los baja GitHub Actions; ver README)
 sello = almacen.leer_sello()
 lineas = [f"{nombre}: {pd.Timestamp(sello[clave]):%d-%m-%Y %H:%M} NY"
