@@ -187,12 +187,12 @@ def _tabla_posiciones(r):
     if vender.empty:
         st.info("Ninguna posición del modelo tiene señal de venta.")
     else:
-        st.dataframe(vender.assign(Empresa=vender["Ticker"].map(_nombre))[
+        _tabla_clicable(vender.assign(Empresa=vender["Ticker"].map(_nombre))[
             ["Ticker", "Empresa", "Motivo", "Entrada", "Precio entrada", "Cierre", "Retorno %", "Stop"]],
-            hide_index=True, width="stretch", column_config=_formato())
-        _botones_empresa(vender["Ticker"].tolist(), "vender")
+            "vender", _formato())
         st.caption("Posiciones del modelo con señal de venta: la EMA 5 cruzó bajo la EMA 21 con el RSI 14 todavía "
-                   "sobre 50, o el cierre cayó 10% o más bajo su máximo desde la entrada.")
+                   "sobre 50, o el cierre cayó 10% o más bajo su máximo desde la entrada. Haz clic en una fila para "
+                   "ver sus precios y noticias.")
 
     st.subheader("Posiciones del modelo")
     if ab.empty:
@@ -214,17 +214,20 @@ def _tabla_posiciones(r):
                       "otras: úsalas como referencia.")
 
 
-def _botones_empresa(tickers, clave, por_fila=4):
-    """Un botón por empresa que abre la ventana de Empresas (precio, medias, RSI 5, MACD y noticias)."""
-    if not tickers:
-        return
-    st.caption("Ver precios y noticias:")
-    for i in range(0, len(tickers), por_fila):
-        cols = st.columns(por_fila)
-        for col, t in zip(cols, tickers[i:i + por_fila]):
-            if col.button(t, key=f"ver_{clave}_{t}", icon=":material/open_in_new:", width="stretch",
-                          help=f"Ver precios y noticias de {_nombre(t)}"):
-                empresas.ver_empresa(_fila_empresa(t))
+def _tabla_clicable(df, clave, column_config):
+    """Tabla con selección de fila (como en Empresas): al elegir una fila se abre la ventana de la empresa con
+    precio, medias, RSI 5, MACD y noticias. La clave cambia con las empresas de la tabla para que una selección
+    vieja no abra otra empresa cuando cambian las filas."""
+    df = df.reset_index(drop=True)
+    clave_tabla = f"tabla_{clave}_" + "_".join(df["Ticker"])
+    evento = st.dataframe(df, hide_index=True, width="stretch", key=clave_tabla, on_select="rerun",
+                          selection_mode="single-row", column_config=column_config)
+    filas = evento.selection.rows
+    elegida = (clave_tabla, df.iloc[filas[0]]["Ticker"]) if filas else None
+    if elegida != st.session_state.get(f"vista_{clave}"):      # abrir solo cuando se elige una fila nueva
+        st.session_state[f"vista_{clave}"] = elegida
+        if elegida:
+            empresas.ver_empresa(_fila_empresa(elegida[1]))
 
 
 def _formato():
@@ -252,13 +255,12 @@ def _cerca(r):
     t = pd.DataFrame({"Ticker": brecha[m].index, "Empresa": [_nombre(x) for x in brecha[m].index],
                       "Cierre": c.loc[fecha, m], "EMA 5 bajo EMA 21 %": brecha[m],
                       "Pendiente SMA 100 %": ind["pend"].loc[fecha, m]}).sort_values("EMA 5 bajo EMA 21 %")
-    st.dataframe(t, hide_index=True, width="stretch",
-                 column_config={"Cierre": st.column_config.NumberColumn(format="$%.2f"),
-                                "EMA 5 bajo EMA 21 %": st.column_config.NumberColumn(format="%.2f"),
-                                "Pendiente SMA 100 %": st.column_config.NumberColumn(format="%.2f")})
-    _botones_empresa(t["Ticker"].tolist(), "cerca")
+    _tabla_clicable(t, "cerca", {"Cierre": st.column_config.NumberColumn(format="$%.2f"),
+                                 "EMA 5 bajo EMA 21 %": st.column_config.NumberColumn(format="%.2f"),
+                                 "Pendiente SMA 100 %": st.column_config.NumberColumn(format="%.2f")})
     comun.explicacion(f"Megacaps con la SMA 100 plana o bajando y la EMA 5 a menos de {BRECHA_CERCA}% bajo la EMA 21: "
-                      "si la EMA 5 cruza hacia arriba con el interruptor encendido, aparecerán en Comprar.")
+                      "si la EMA 5 cruza hacia arriba con el interruptor encendido, aparecerán en Comprar. "
+                      "Haz clic en una fila para ver sus precios y noticias.")
 
 
 def _fila_empresa(t):
