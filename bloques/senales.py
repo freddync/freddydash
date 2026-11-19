@@ -4,7 +4,10 @@ Entrada ★ (al cierre de un día):
   1. la EMA 5 cruza hacia arriba la EMA 21,
   2. la SMA 100 está plana o bajando (subió ≤ 0,13% en 20 sesiones),
   3. el mercado está agitado: volatilidad de 20 días del QQQ > su volatilidad de 200 días.
-Salida: el cierre cae 10% bajo el máximo cierre desde la entrada (trailing stop sobre cierres).
+Salida (lo primero que ocurra):
+  a. la EMA 5 cruza hacia abajo la EMA 21 y ese día el RSI 14 está sobre 50 (la subida pierde fuerza
+     cuando todavía estaba fuerte), o
+  b. el cierre cae 10% bajo el máximo cierre desde la entrada (trailing stop sobre cierres, de emergencia).
 Cartera del modelo: 10 cupos, una posición por acción; si sobran señales, primero las de mayor capitalización.
 
 FreddyDash guarda solo cierres, así que el modelo compra y vende al CIERRE del día siguiente a la señal
@@ -17,14 +20,17 @@ import pandas as pd
 import plotly.graph_objects as go
 import streamlit as st
 
-from bloques import comun
+from bloques import comun, empresas
+from bloques.indicadores import rsi
 from bloques.series import MEGACAPS
 from fuentes import almacen
 
 PEND_SMA100_MAX = 0.13      # % de cambio de la SMA 100 en 20 sesiones
 VOL_CORTA, VOL_LARGA = 20, 200
 TRAILING = 0.10
+RSI_SALIDA, RSI_SALIDA_MIN = 14, 50   # salida por cruce ↓ de EMAs solo si el RSI 14 está sobre 50 ese día
 CUPOS = 10
+MOTIVO_CRUCE, MOTIVO_TRAILING = "cruce ↓ con RSI 14 > 50", "trailing 10%"
 INICIO_MODELO = "2023-01-01"
 BRECHA_CERCA = 1.5          # "cerca de señal": EMA 5 a menos de este % bajo la EMA 21
 CIERRE_NY = (16, 10)        # después de esta hora (NY) la vela del día se considera cerrada
@@ -44,43 +50,51 @@ def indicadores(c, qqq):
     pend = 100 * (sma100 / sma100.shift(20) - 1)
     arriba = (ema5 > ema21) & c.notna()
     cruce = arriba & ~arriba.shift(1, fill_value=True)
+    cruce_baja = ~arriba & arriba.shift(1, fill_value=False) & c.notna()
+    rsi14 = rsi(c, RSI_SALIDA)
+    salida = cruce_baja & (rsi14 > RSI_SALIDA_MIN)
     v20, v200 = volatilidad(qqq, VOL_CORTA), volatilidad(qqq, VOL_LARGA)
     agitado = (v20 > v200).fillna(False)
     senal = cruce & (pend <= PEND_SMA100_MAX) & pd.DataFrame({t: agitado for t in c.columns})
-    return {"ema5": ema5, "ema21": ema21, "sma100": sma100, "pend": pend, "senal": senal,
-            "v20": v20, "v200": v200, "agitado": agitado}
+    return {"ema5": ema5, "ema21": ema21, "sma100": sma100, "pend": pend, "senal": senal, "salida": salida,
+            "rsi14": rsi14, "v20": v20, "v200": v200, "agitado": agitado}
 
 
-def modelo(c, senal, inicio=INICIO_MODELO):
+def modelo(c, senal, salida, inicio=INICIO_MODELO):
     """Recorre la estrategia día a día con cierres. Devuelve (abiertas, operaciones cerradas,
     señales del último día en orden de prioridad, ventas pendientes para el próximo día)."""
     fechas = c.index[c.index >= inicio]
     cols = list(c.columns)
     precio = c.loc[fechas].to_numpy()
     sen = senal.loc[fechas].to_numpy()
-    pos, ops, compras, ventas = {}, [], [], []
+    sal = salida.loc[fechas].to_numpy()
+    pos, ops, compras, ventas, motivo = {}, [], [], [], {}
     for k, f in enumerate(fechas):
         for j in ventas:                                     # se vende al cierre del día siguiente a la señal
             p = pos.pop(j)
             ops.append({"Ticker": cols[j], "Entrada": p["fecha"], "Precio entrada": p["px"], "Salida": f,
                         "Precio salida": precio[k, j], "Retorno %": 100 * (precio[k, j] / p["px"] - 1),
-                        "Días": k - p["k"]})
+                        "Días": k - p["k"], "Motivo": motivo[j]})
         for j in compras:                                    # se compra al cierre del día siguiente a la señal
             if len(pos) >= CUPOS:
                 break
             if np.isfinite(precio[k, j]):
                 pos[j] = {"fecha": f, "px": precio[k, j], "max": precio[k, j], "k": k}
-        ventas = []
+        ventas, motivo = [], {}
         for j, p in pos.items():
             if np.isfinite(precio[k, j]):
                 p["max"] = max(p["max"], precio[k, j])
-                if precio[k, j] <= p["max"] * (1 - TRAILING):
+                if sal[k, j]:
                     ventas.append(j)
+                    motivo[j] = MOTIVO_CRUCE
+                elif precio[k, j] <= p["max"] * (1 - TRAILING):
+                    ventas.append(j)
+                    motivo[j] = MOTIVO_TRAILING
         compras = [j for j in range(len(cols)) if sen[k, j] and j not in pos]
     abiertas = [{"Ticker": cols[j], "Entrada": p["fecha"], "Precio entrada": p["px"], "Cierre": precio[-1, j],
                  "Retorno %": 100 * (precio[-1, j] / p["px"] - 1), "Máximo": p["max"],
                  "Stop": p["max"] * (1 - TRAILING), "Distancia al stop %": 100 * (precio[-1, j] / (p["max"] * (1 - TRAILING)) - 1),
-                 "Vender": j in ventas}
+                 "Vender": j in ventas, "Motivo": motivo.get(j, "")}
                 for j, p in pos.items()]
     return (pd.DataFrame(abiertas), pd.DataFrame(ops), [cols[j] for j in compras], [cols[j] for j in ventas])
 
@@ -107,11 +121,11 @@ def calcular(version, sello):
     c = c.where(p[tickers].reindex(qqq.index).bfill().notna())   # sin precios antes de que la acción cotice
     fecha, provisoria = ultima_cerrada(qqq.index, sello)
     oficial = indicadores(c.loc[:fecha], qqq.loc[:fecha])
-    abiertas, ops, compras, ventas = modelo(c.loc[:fecha], oficial["senal"])
+    abiertas, ops, compras, ventas = modelo(c.loc[:fecha], oficial["senal"], oficial["salida"])
     prov = None
     if provisoria:
         todo = indicadores(c, qqq)
-        ab_p, _, compras_p, _ = modelo(c, todo["senal"])
+        ab_p, _, compras_p, _ = modelo(c, todo["senal"], todo["salida"])
         prov = {"compras": compras_p, "agitado": bool(todo["agitado"].iloc[-1]), "fecha": c.index[-1],
                 "v20": todo["v20"].iloc[-1], "v200": todo["v200"].iloc[-1],
                 "ventas": ab_p[ab_p["Vender"]]["Ticker"].tolist() if len(ab_p) else []}
@@ -171,24 +185,32 @@ def _tabla_posiciones(r):
     st.subheader("Vender")
     vender = ab[ab["Vender"]] if len(ab) else ab
     if vender.empty:
-        st.info("Ninguna posición del modelo tocó su stop.")
+        st.info("Ninguna posición del modelo tiene señal de venta.")
     else:
         st.dataframe(vender.assign(Empresa=vender["Ticker"].map(_nombre))[
-            ["Ticker", "Empresa", "Entrada", "Precio entrada", "Cierre", "Retorno %", "Stop"]],
+            ["Ticker", "Empresa", "Motivo", "Entrada", "Precio entrada", "Cierre", "Retorno %", "Stop"]],
             hide_index=True, width="stretch", column_config=_formato())
-        st.caption("Posiciones del modelo cuyo cierre cayó 10% o más bajo su máximo desde la entrada.")
+        st.caption("Posiciones del modelo con señal de venta: la EMA 5 cruzó bajo la EMA 21 con el RSI 14 todavía "
+                   "sobre 50, o el cierre cayó 10% o más bajo su máximo desde la entrada.")
 
     st.subheader("Posiciones del modelo")
     if ab.empty:
         st.info("El modelo no tiene posiciones abiertas.")
         return
-    vista = ab.assign(Empresa=ab["Ticker"].map(_nombre)).sort_values("Distancia al stop %")
+    ind, fecha = r["ind"], r["fecha"]
+    vista = ab.assign(Empresa=ab["Ticker"].map(_nombre),
+                      **{"EMA 5 vs EMA 21": ["Arriba" if ind["ema5"].at[fecha, t] > ind["ema21"].at[fecha, t] else "Abajo"
+                                             for t in ab["Ticker"]],
+                         "RSI 14": [ind["rsi14"].at[fecha, t] for t in ab["Ticker"]]}).sort_values("Distancia al stop %")
     st.dataframe(vista[["Ticker", "Empresa", "Entrada", "Precio entrada", "Cierre", "Retorno %", "Máximo", "Stop",
-                        "Distancia al stop %"]], hide_index=True, width="stretch", column_config=_formato())
+                        "Distancia al stop %", "EMA 5 vs EMA 21", "RSI 14"]], hide_index=True, width="stretch",
+                 column_config={**_formato(), "RSI 14": st.column_config.NumberColumn(format="%.1f")})
     comun.explicacion("Lo que tendría abierto el modelo si hubiera seguido todas las señales desde 2023 (10 cupos). "
-                      "**Stop** es el máximo cierre desde la entrada menos 10%: si un cierre queda en o bajo ese nivel, "
-                      "se vende. **Distancia al stop** es cuánto puede caer el precio antes de tocarlo. Tus posiciones "
-                      "reales pueden ser otras: úsalas como referencia.")
+                      "Se vende con lo primero que ocurra: (1) la EMA 5 cruza bajo la EMA 21 con el **RSI 14** todavía "
+                      "sobre 50, o (2) el cierre queda en o bajo el **Stop** (máximo cierre desde la entrada menos 10%, "
+                      "de emergencia). **Distancia al stop** es cuánto puede caer el precio antes de tocarlo. Con la EMA 5 "
+                      "arriba y el RSI 14 sobre 50, un cruce hacia abajo sería venta. Tus posiciones reales pueden ser "
+                      "otras: úsalas como referencia.")
 
 
 def _formato():
@@ -224,12 +246,29 @@ def _cerca(r):
                       "si la EMA 5 cruza hacia arriba con el interruptor encendido, aparecerán en Comprar.")
 
 
+def _fila_empresa(t):
+    """Fila con el formato que espera la ventana de Empresas. Si la megacap no está en el universo del
+    screener (ADRs, por ejemplo), RSI 5 y MACD se calculan con los cierres de acá."""
+    df = empresas.tabla(empresas.industrias.version() + almacen.version(empresas.industrias.DATOS / "put_call.csv"))[0]
+    fila = df[df["Ticker"] == t]
+    if len(fila):
+        return fila.iloc[0]
+    c = comun.precios()[[t]].dropna()
+    linea, senal, _ = empresas.macd(c)
+    return pd.Series({"Ticker": t, "Nombre": _nombre(t), "Sector": "Megacap", "Industria": "fuera del screener",
+                      "RSI 5": rsi(c)[t].iloc[-1], "MACD 6/13/5": empresas.categoria_macd(linea, senal)[t],
+                      "Put/Call": np.nan})
+
+
 def _grafico(r):
     st.subheader("Gráfico")
     c, ind, fecha = r["c"], r["ind"], r["fecha"]
     ab, ops = r["abiertas"], r["ops"]
     sugeridos = list(dict.fromkeys([*r["compras"], *(ab["Ticker"] if len(ab) else []), *c.columns]))
-    t = st.selectbox("Empresa", sugeridos, format_func=lambda x: f"{x} · {_nombre(x)}", key="senales_ticker")
+    c1, c2 = st.columns([4, 1], vertical_alignment="bottom")
+    t = c1.selectbox("Empresa", sugeridos, format_func=lambda x: f"{x} · {_nombre(x)}", key="senales_ticker")
+    if c2.button("Ver datos de la empresa", icon=":material/open_in_new:", width="stretch"):
+        empresas.ver_empresa(_fila_empresa(t))
     s = comun.recortar(c[t].dropna(), "1A", fecha)
     fig = go.Figure()
     fig.add_scatter(x=s.index, y=s, name="Cierre", line=dict(color="#d0d7de", width=1.6))
@@ -244,9 +283,12 @@ def _grafico(r):
     o = ops[ops["Ticker"] == t] if len(ops) else ops
     o = o[o["Salida"] >= s.index[0]] if len(o) else o
     if len(o):
-        fig.add_scatter(x=o["Salida"], y=o["Precio salida"] * 1.03, mode="markers+text", name="Venta del modelo",
-                        marker=dict(symbol="triangle-down", size=12, color="#f85149"),
-                        text=[f"{x:+.1f}%" for x in o["Retorno %"]], textposition="top center")
+        for motivo, color in ((MOTIVO_CRUCE, "#ff9f43"), (MOTIVO_TRAILING, "#f85149")):
+            m = o[o["Motivo"] == motivo]
+            if len(m):
+                fig.add_scatter(x=m["Salida"], y=m["Precio salida"] * 1.03, mode="markers+text",
+                                name=f"Venta: {motivo}", marker=dict(symbol="triangle-down", size=12, color=color),
+                                text=[f"{x:+.1f}%" for x in m["Retorno %"]], textposition="top center")
     if len(ab) and t in set(ab["Ticker"]):
         p = ab[ab["Ticker"] == t].iloc[0]
         fig.add_hline(y=p["Stop"], line=dict(color="#f85149", dash="dash", width=1.2),
@@ -256,7 +298,7 @@ def _grafico(r):
     fig.update_xaxes(rangebreaks=[dict(bounds=["sat", "mon"])])
     st.plotly_chart(comun.layout(fig, f"{t} · último año", sufijo="", alto=460), width="stretch")
     comun.explicacion("Estrellas verdes: señales ★ (cruce de la EMA 5 sobre la EMA 21 con la SMA 100 plana y el "
-                      "interruptor encendido). Triángulos rojos: ventas del modelo, con su resultado. Si el modelo tiene "
+                      "interruptor encendido). Triángulos: ventas del modelo con su resultado (naranjo = cruce hacia abajo con RSI 14 > 50, rojo = trailing 10%). Si el modelo tiene "
                       "la acción, la línea punteada vertical marca la entrada y la roja horizontal el stop vigente.")
 
 
@@ -270,15 +312,16 @@ def _historial(r):
                     f"retorno medio {ops['Retorno %'].mean():+.1f}% · mediana {ops['Retorno %'].median():+.1f}% · "
                     f"{ops['Días'].mean():.0f} días en promedio.")
         st.dataframe(ops.assign(Empresa=ops["Ticker"].map(_nombre)).sort_values("Salida", ascending=False)[
-            ["Ticker", "Empresa", "Entrada", "Precio entrada", "Salida", "Precio salida", "Retorno %", "Días"]],
+            ["Ticker", "Empresa", "Entrada", "Precio entrada", "Salida", "Precio salida", "Retorno %", "Días", "Motivo"]],
             hide_index=True, width="stretch", column_config=_formato())
 
 
 def _advertencias():
     with st.expander("Antes de usar estas señales"):
         st.markdown(
-            "- **Backtest 2023–2026** (74 megacaps, 10 cupos): +160% contra +100% del SPY y +150% del QQQ, con menos "
-            "volatilidad y caída máxima de −15%.\n"
+            "- **Backtest 2023–2026** (74 megacaps, 10 cupos): ~+165% contra +100% del SPY y +150% del QQQ, con "
+            "menos volatilidad y caída máxima de −14%. La salida por cruce con RSI 14 > 50 sumó poco (+169% contra "
+            "+160% con el trailing solo, dentro del ruido): se activa pocas veces y el trailing hace casi todo.\n"
             "- **Sesgo de lista**: son las megacaps de hoy, las que ganaron. Mantener esa misma lista con la misma "
             "exposición rindió ~+130%; la ventaja contra SPY y QQQ viene en buena parte de la lista.\n"
             "- **La operación típica gana poco** (mediana ~+4%): el resultado depende de pocos ganadores grandes, "
