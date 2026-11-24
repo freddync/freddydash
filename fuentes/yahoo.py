@@ -96,3 +96,42 @@ def noticias(ticker, n=10):
             "otros": [t for t in x.get("relatedTickers") or [] if t != ticker],
         })
     return out
+
+
+def _extendido(ticker):
+    """Último precio del ticker incluyendo pre y post market, con la sesión en que se transó y el cierre
+    regular con que se compara. Futuros (=F): último precio contra el cierre (settle) anterior."""
+    try:
+        r = requests.get(URL.format(ticker), params={"range": "1d", "interval": "5m", "includePrePost": "true"},
+                         headers=CABECERAS, timeout=20)
+        res = r.json()["chart"]["result"][0]
+    except Exception:
+        return None
+    m = res["meta"]
+    velas = [(t, c) for t, c in zip(res.get("timestamp") or [], res["indicators"]["quote"][0].get("close") or [])
+             if c is not None]
+    hora, precio = (velas[-1] if velas else (m.get("regularMarketTime"), m.get("regularMarketPrice")))
+    if ticker.endswith("=F"):
+        sesion, base = "Futuro", m.get("previousClose") or m.get("chartPreviousClose")
+        precio = m.get("regularMarketPrice") or precio
+    else:
+        p = m.get("currentTradingPeriod", {})
+        en = lambda k: p.get(k) and p[k]["start"] <= hora < p[k]["end"]  # noqa: E731
+        if en("pre"):
+            sesion, base = "Premarket", m.get("regularMarketPrice")      # en el pre, es el cierre de ayer
+        elif en("post") or (p.get("post") and hora >= p["post"]["end"]):
+            sesion, base = "Postmarket", m.get("regularMarketPrice")     # en el post, es el cierre de hoy
+        else:
+            sesion, base = "Sesión regular", m.get("previousClose") or m.get("chartPreviousClose")
+    if not precio or not base:
+        return None
+    return {"Ticker": ticker, "Sesión": sesion, "Hora": pd.Timestamp(hora, unit="s", tz="UTC").tz_convert("America/New_York"),
+            "Cierre base": base, "Precio": precio, "Var %": 100 * (precio / base - 1)}
+
+
+def extendido(tickers, hilos=8):
+    """Último precio (con pre y post market) de varios tickers en paralelo: DataFrame con Ticker, Sesión,
+    Hora (NY), Cierre base, Precio y Var %."""
+    with ThreadPoolExecutor(hilos) as ex:
+        filas = [f for f in ex.map(_extendido, tickers) if f]
+    return pd.DataFrame(filas)

@@ -23,7 +23,7 @@ import streamlit as st
 from bloques import comun, empresas
 from bloques.indicadores import rsi
 from bloques.series import MEGACAPS
-from fuentes import almacen
+from fuentes import almacen, yahoo
 
 PEND_SMA100_MAX = 0.13      # % de cambio de la SMA 100 en 20 sesiones
 VOL_CORTA, VOL_LARGA = 20, 200
@@ -33,6 +33,7 @@ CUPOS = 10
 MOTIVO_CRUCE, MOTIVO_TRAILING = "cruce ↓ con RSI 14 > 50", "trailing 10%"
 INICIO_MODELO = "2023-01-01"
 BRECHA_CERCA = 1.5          # "cerca de señal": EMA 5 a menos de este % bajo la EMA 21
+FUTUROS = {"ES=F": "S&P 500", "NQ=F": "Nasdaq 100", "YM=F": "Dow Jones", "RTY=F": "Russell 2000"}
 CIERRE_NY = (16, 10)        # después de esta hora (NY) la vela del día se considera cerrada
 
 
@@ -242,12 +243,18 @@ def _formato():
             "Distancia al stop %": st.column_config.NumberColumn(format="%.1f")}
 
 
-def _cerca(r):
-    ind, fecha, c = r["ind"], r["fecha"], r["c"]
+def _brecha_cerca(r):
+    """(brecha EMA 5 bajo EMA 21 en %, máscara de las megacaps cerca de señal)."""
+    ind, fecha = r["ind"], r["fecha"]
     en_cartera = set(r["abiertas"]["Ticker"]) if len(r["abiertas"]) else set()
     brecha = 100 * (ind["ema21"].loc[fecha] - ind["ema5"].loc[fecha]) / ind["ema21"].loc[fecha]
     plana = ind["pend"].loc[fecha] <= PEND_SMA100_MAX
-    m = plana & (brecha > 0) & (brecha <= BRECHA_CERCA) & ~brecha.index.isin(en_cartera)
+    return brecha, plana & (brecha > 0) & (brecha <= BRECHA_CERCA) & ~brecha.index.isin(en_cartera)
+
+
+def _cerca(r):
+    ind, fecha, c = r["ind"], r["fecha"], r["c"]
+    brecha, m = _brecha_cerca(r)
     st.subheader("Cerca de señal")
     if not m.any():
         st.info("Ninguna megacap está cerca de una señal.")
@@ -348,6 +355,60 @@ def _advertencias():
             "datos 2023–2025: 2026 no es una prueba completamente limpia.")
 
 
+@st.cache_data(ttl=120, show_spinner="Buscando precios fuera de horario…")
+def _extendido(tickers):
+    return yahoo.extendido(list(tickers))
+
+
+def _premarket(r):
+    """Futuros y último precio (pre/post market) de las megacaps que importan hoy: ventas, compras,
+    posiciones del modelo y cerca de señal. Se baja en vivo desde Yahoo al abrir la página (cada 2 min)."""
+    ab = r["abiertas"]
+    grupos = {}
+    for t in (ab[ab["Vender"]]["Ticker"] if len(ab) else []):
+        grupos.setdefault(t, "Vender")
+    for t in r["compras"]:
+        grupos.setdefault(t, "Comprar")
+    for t in (ab["Ticker"] if len(ab) else []):
+        grupos.setdefault(t, "Posición")
+    for t in _brecha_cerca(r)[1].pipe(lambda m: m[m].index):
+        grupos.setdefault(t, "Cerca de señal")
+    d = _extendido(tuple(FUTUROS) + tuple(grupos))
+    if d.empty:
+        st.caption("No se pudieron bajar los precios fuera de horario desde Yahoo.")
+        return
+    acc = d[~d["Ticker"].isin(FUTUROS)]
+    sesion = acc["Sesión"].mode().iat[0] if len(acc) else "Sesión regular"
+    titulo = {"Premarket": "🌅 Premarket", "Postmarket": "🌙 Postmarket"}.get(sesion, "📈 Mercado ahora")
+    with st.expander(titulo, expanded=sesion == "Premarket"):
+        fut = d[d["Ticker"].isin(FUTUROS)].set_index("Ticker")
+        cols = st.columns(len(FUTUROS))
+        for col, (t, nombre) in zip(cols, FUTUROS.items()):
+            if t in fut.index:
+                col.metric(f"Futuro {nombre}", f"{fut.at[t, 'Precio']:,.0f}", f"{fut.at[t, 'Var %']:+.2f}%")
+        if acc.empty:
+            return
+        stops = ab.set_index("Ticker")["Stop"] if len(ab) else pd.Series(dtype=float)
+        t = acc.assign(Grupo=acc["Ticker"].map(grupos), Empresa=acc["Ticker"].map(_nombre),
+                       Hora=acc["Hora"].dt.strftime("%H:%M"), Stop=acc["Ticker"].map(stops))
+        t["Bajo el stop"] = np.where(t["Stop"].notna() & (t["Precio"] <= t["Stop"]), "⚠️ Sí", "")
+        orden = {"Vender": 0, "Comprar": 1, "Posición": 2, "Cerca de señal": 3}
+        t = t.sort_values(["Grupo", "Var %"], key=lambda c: c.map(orden) if c.name == "Grupo" else c)
+        _tabla_clicable(t[["Ticker", "Empresa", "Grupo", "Sesión", "Hora", "Cierre base", "Precio", "Var %", "Stop",
+                           "Bajo el stop"]], "premarket",
+                        {"Cierre base": st.column_config.NumberColumn(format="$%.2f"),
+                         "Precio": st.column_config.NumberColumn(format="$%.2f"),
+                         "Stop": st.column_config.NumberColumn(format="$%.2f"),
+                         "Var %": st.column_config.NumberColumn(format="%+.2f")})
+        comun.explicacion(
+            "Último precio de Yahoo incluyendo el premarket (4:00 a 9:30 NY) y el postmarket (16:00 a 20:00 NY), "
+            "con ~15 minutos de retraso. **Var %** compara contra el último cierre regular (en el premarket, el de "
+            "ayer). Los futuros se comparan contra su cierre anterior. Fuera de horario se transa poco: sirve para "
+            "ver cómo viene la apertura, pero las señales del modelo se siguen calculando con los cierres. "
+            "**Bajo el stop**: posiciones cuyo precio actual ya está bajo su stop (la venta se decide igual al cierre). "
+            "Haz clic en una fila para ver la empresa.")
+
+
 def mostrar():
     sello = almacen.leer_sello().get("precios")
     r = calcular(almacen.version(), sello)
@@ -361,6 +422,7 @@ def mostrar():
                         f"Compras posibles: {', '.join(p['compras']) or 'ninguna'} · "
                         f"Ventas posibles: {', '.join(p['ventas']) or 'ninguna'}.  \n"
                         "Puede cambiar hasta el cierre: la señal oficial es la del cierre.")
+    _premarket(r)
     _interruptor(r)
     c1, c2 = st.columns(2)
     with c1:
