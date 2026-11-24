@@ -15,7 +15,7 @@ import streamlit as st
 # Streamlit vuelve a correr app.py y la página cuando cambia el código (al publicar en GitHub, por ejemplo),
 # pero los módulos propios quedan en memoria con su versión anterior. Si alguno cambió, se recargan todos,
 # primero los que no dependen de otros, para que nadie quede usando funciones viejas.
-ORDEN = ["fuentes.yahoo", "fuentes.fred", "fuentes.cboe", "fuentes.almacen", "bloques.series", "bloques.indicadores",
+ORDEN = ["fuentes.yahoo", "fuentes.fred", "fuentes.yahoo_opciones", "fuentes.almacen", "bloques.series", "bloques.indicadores",
          "bloques.comun", "bloques.relativo", "bloques.rotacion", "bloques.volatilidad", "bloques.tendencia", "bloques.tasas",
          "bloques.commodities", "bloques.sectores", "bloques.industrias", "bloques.empresas",
          "bloques.senales"]

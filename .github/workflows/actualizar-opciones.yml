@@ -1,7 +1,7 @@
 name: Actualizar opciones
 
-# Put/Call de cada empresa (datos/put_call.csv) desde Cboe; tarda ~35 minutos.
-# El open interest cambia una vez al día: la OCC lo publica de noche y Cboe lo muestra en la mañana.
+# Put/Call de cada empresa (datos/put_call.csv) desde Yahoo Finance; tarda ~15 minutos.
+# El open interest cambia una vez al día: la OCC lo publica de noche y aparece en la mañana.
 # Lun-vie a las 8:40 NY y, de respaldo, a las 11:40 NY (horas UTC con horario de verano; en invierno
 # corren una hora antes). El respaldo no hace nada si el de la mañana ya bajó los datos del día.
 on:

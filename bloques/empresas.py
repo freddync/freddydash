@@ -236,7 +236,7 @@ def mostrar():
         },
     )
     st.caption(f"{len(vista)} de {len(df)} empresas. Haz clic en una fila para ver su precio, volumen, RSI 5 y "
-               f"MACD. Precios al {fecha_precios:%d-%m-%Y}; Put/Call de Cboe al "
+               f"MACD. Precios al {fecha_precios:%d-%m-%Y}; Put/Call de Yahoo al "
                f"{fecha_pc if isinstance(fecha_pc, str) else 'sin datos'} (se actualiza solo cada día hábil): open "
                "interest de puts / calls, todos los vencimientos.")
 
