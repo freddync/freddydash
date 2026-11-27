@@ -173,9 +173,9 @@ def _tabla_compras(r):
     filas = [{"Ticker": t, "Empresa": _nombre(t), "Cierre": r["c"].at[fecha, t],
               "Pendiente SMA 100 %": ind["pend"].at[fecha, t],
               "Cupo del modelo": "Sí" if i < libres else "Sin cupo"} for i, t in enumerate(r["compras"])]
-    st.dataframe(pd.DataFrame(filas), hide_index=True, width="stretch",
-                 column_config={"Cierre": st.column_config.NumberColumn(format="$%.2f"),
-                                "Pendiente SMA 100 %": st.column_config.NumberColumn(format="%.2f")})
+    _tabla_clicable(pd.DataFrame(filas), "comprar",
+                    {"Cierre": st.column_config.NumberColumn(format="$%.2f"),
+                     "Pendiente SMA 100 %": st.column_config.NumberColumn(format="%.2f")})
     st.caption(f"Señales ★ del cierre del {fecha:%d-%m-%Y}: la EMA 5 cruzó sobre la EMA 21, con la SMA 100 plana o "
                f"bajando y el interruptor encendido. El modelo tiene {max(libres, 0)} de {CUPOS} cupos libres; el orden "
                "es de mayor a menor capitalización.")
@@ -204,15 +204,15 @@ def _tabla_posiciones(r):
                       **{"EMA 5 vs EMA 21": ["Arriba" if ind["ema5"].at[fecha, t] > ind["ema21"].at[fecha, t] else "Abajo"
                                              for t in ab["Ticker"]],
                          "RSI 14": [ind["rsi14"].at[fecha, t] for t in ab["Ticker"]]}).sort_values("Distancia al stop %")
-    st.dataframe(vista[["Ticker", "Empresa", "Entrada", "Precio entrada", "Cierre", "Retorno %", "Máximo", "Stop",
-                        "Distancia al stop %", "EMA 5 vs EMA 21", "RSI 14"]], hide_index=True, width="stretch",
-                 column_config={**_formato(), "RSI 14": st.column_config.NumberColumn(format="%.1f")})
+    _tabla_clicable(vista[["Ticker", "Empresa", "Entrada", "Precio entrada", "Cierre", "Retorno %", "Máximo", "Stop",
+                           "Distancia al stop %", "EMA 5 vs EMA 21", "RSI 14"]], "posiciones",
+                    {**_formato(), "RSI 14": st.column_config.NumberColumn(format="%.1f")})
     comun.explicacion("Lo que tendría abierto el modelo si hubiera seguido todas las señales desde 2023 (10 cupos). "
                       "Se vende con lo primero que ocurra: (1) la EMA 5 cruza bajo la EMA 21 con el **RSI 14** todavía "
                       "sobre 50, o (2) el cierre queda en o bajo el **Stop** (máximo cierre desde la entrada menos 10%, "
                       "de emergencia). **Distancia al stop** es cuánto puede caer el precio antes de tocarlo. Con la EMA 5 "
                       "arriba y el RSI 14 sobre 50, un cruce hacia abajo sería venta. Tus posiciones reales pueden ser "
-                      "otras: úsalas como referencia.")
+                      "otras: úsalas como referencia. Haz clic en una fila para ver la empresa.")
 
 
 def _tabla_clicable(df, clave, column_config):
